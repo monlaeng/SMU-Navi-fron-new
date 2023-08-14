@@ -8,19 +8,18 @@ import Footer from "../../component/Footer/Footer";
 import M_Main_Logo from "../../component/MainLogo/Mobile_Main_Logo";
 import MenuBar from "../../component/MenuBar/MenuBar";
 import TrafficInfo from "../../component/TrafficInfo/TrafficInfo";
-const Map_Main = ({linePath}) => {
+import {MEDIA_QUERIES, Wrapper} from "../../component/MEDIA_QUERIES/MEDIA_QUERIES";
+import Media from "react-media";
+const Mobile_Map_Main = ({linePath}) => {
 
 
     return (
         <div className={"Main_wrap"}>
-            <MainLogo className={"mainlogo"}/>
-            <Line/>
-            <MenuBar/>
-            <TrafficInfo />
-            <div id='map' ></div>
-            <SearchBox />
-            <Footer />
+            <Wrapper>
+                <M_Main_Logo className={"mainlogo"}/>
+                <M_Search_Box />
+            </Wrapper>
         </div>
     );
 }
-export default Map_Main
+export default Mobile_Map_Main
