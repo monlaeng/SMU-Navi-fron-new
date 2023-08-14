@@ -3,6 +3,7 @@ import './M_Search_Box.css';
 import axios from 'axios';
 import up from '../../img/up.png';
 import down from '../../img/down.png';
+import smuMarker from '../../img/smuMarker.png';
 
 const { kakao } = window;
 var polylines = [];
@@ -35,6 +36,9 @@ function M_Search_Box() {
     const imageSize = new kakao.maps.Size(20, 25);
     const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    const smuImageSize = new kakao.maps.Size(30, 35);
+    const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
 
     const [showInfo, setShowInfo] = useState([false, false, false, false, false]);
@@ -116,6 +120,14 @@ function M_Search_Box() {
                 });
                 marker.setMap(map);
                 // setTransferName(null);
+
+                var smuMarker = new kakao.maps.Marker({
+                    map: map,
+                    position : new kakao.maps.LatLng(37.6026, 126.9553),
+                    title: '상명대학교',
+                    image: smuMarkerImage
+                });
+                smuMarker.setMap(map);
 
 
                 kakao.maps.event.addListener(marker, 'click', async function Click ()  {
@@ -395,6 +407,8 @@ function M_Search_Box() {
                 transitImg = 'sub3';
             else if(lineName === '4')
                 transitImg = 'sub4';
+            else if(lineName === '5')
+                transitImg = 'sub5';
             else if(lineName === '6')
                 transitImg = 'sub6';
         }
@@ -420,6 +434,8 @@ function M_Search_Box() {
                 verColor = '#EF7C1C';
             else if(lineName === '4')
                 verColor = '#00A5DE';
+            else if(lineName === '5')
+                verColor = '#996CAC';
             else if(lineName === '6')
                 verColor = '#CD7C2F';
         }

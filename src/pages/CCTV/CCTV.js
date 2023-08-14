@@ -5,7 +5,6 @@ import Footer from "../../component/Footer/Footer";
 import "./CCTV.css"
 import MenuBar from "../../component/MenuBar/MenuBar";
 import Media from "react-media";
-import {MEDIA_QUERIES} from "../../component/MEDIA_QUERIES/MEDIA_QUERIES";
 
 const CCTV = () => {
 
@@ -18,32 +17,6 @@ const CCTV = () => {
         document.getElementById(idx).style.color= "white";
     }
 
-    const PcMode = () => (
-        <>
-            <MainLogo className={"mainlogo"}/>
-            <Line/>
-            <MenuBar/>
-            <div id={'cctv-wrapper'}>
-            <button id={"cctv1"} onClick={() => {selectBtn("cctv1"); buttonColor('cctv1');}}>광화문</button>
-            <button id={"cctv2"} onClick={() => {selectBtn("cctv2"); buttonColor('cctv2');}}>시청</button>
-            <div id={"cctv"}>
-                <h1 id={"test"}>CCTV</h1>
-                <iframe id={"myIframe"}
-                        src="http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.93801784507436&minY=37.534755415666964&maxX=127.01863625090986&maxY=37.616271305116555"
-                        height="350" width="600" frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen="true"></iframe>
-            </div>
-            </div>
-        </>
-    )
-
-
-    const MobileMode = () => (
-        <>
-        모바일 테스트
-        </>
-    )
 
 
     function selectBtn(idx) {
@@ -57,17 +30,22 @@ const CCTV = () => {
 
     return (
         <div className={"Main_wrap"}>
-
-            <Media queries={MEDIA_QUERIES}>
-                {matches => {
-                    return(
-                        <>
-                            {matches.pc && <PcMode />}
-                            {matches.mobile && <MobileMode />}
-                        </>
-                    )
-                }}
-            </Media>
+            <MainLogo className={"mainlogo"}/>
+            <Line/>
+            <MenuBar/>
+            <div id={'cctv-wrapper'}>
+                <div id={"cctv"}>
+                    <div id={'button-wrapper'}>
+                        <button id={"cctv1"} onClick={() => {selectBtn("cctv1"); buttonColor('cctv1');}}>광화문</button>
+                        <button id={"cctv2"} onClick={() => {selectBtn("cctv2"); buttonColor('cctv2');}}>시청</button>
+                    </div>
+                    <iframe id={"myIframe"}
+                            src="http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.93801784507436&minY=37.534755415666964&maxX=127.01863625090986&maxY=37.616271305116555"
+                            height="350" width="500" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen="{true}"></iframe>
+                </div>
+            </div>
             <Footer />
         </div>
     );

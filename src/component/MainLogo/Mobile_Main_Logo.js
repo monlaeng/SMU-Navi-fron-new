@@ -70,6 +70,10 @@ const Mobile_Main_Logo = () => {
     const onLogin = (e) => {
         navigate('/login');
     }
+
+    const toCCTV = (e) => {
+        navigate('/CCTV');
+    }
     const handleListImageClick = () => {
         setIsNavOpen((prev) => !prev);
     };
@@ -94,7 +98,7 @@ const Mobile_Main_Logo = () => {
                 <NavLine></NavLine>
                 <NavLink>꿀팁 확인하기</NavLink>
                 <NavLine></NavLine>
-                <NavLink>CCTV 확인하기</NavLink>
+                <NavLink onClick={toCCTV}>CCTV 확인하기</NavLink>
             </NavContainer>
         </Container>
     );

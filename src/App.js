@@ -31,7 +31,8 @@ import Detail_Notice from './pages/Notice/Detail_notice';
 import MobileMain from './pages/MapMain/MobileMain';
 import MobileLogin from './pages/Login/MobileLogin';
 import MobileSignup from './pages/Signup/MobileSignup';
-
+import MobileMapMain from './pages/MapMain/Mobile_Map_Main';
+import MovileCCTV from './pages/CCTV/Mobile_CCTV';
 //map page
 import MapMain from "./pages/MapMain/Map_Main";
 document.cookie = "crossCookie=bar; SameSite=None; Secure";
@@ -68,7 +69,8 @@ function App(){
                         <Route path="/main" element={<MobileMain />}></Route>
                         <Route path="/login" element={<MobileLogin />}></Route>
                         <Route path="/signup" element={<MobileSignup />}></Route>
-                        <Route path="/" element={<MapMain />}></Route>
+                        <Route path="/CCTV" element={<MovileCCTV />}></Route>
+                        <Route path="/" element={<MobileMapMain />}></Route>
                     </Routes>
                 </Router>
             </Mobile>
