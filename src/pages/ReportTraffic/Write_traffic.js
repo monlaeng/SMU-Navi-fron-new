@@ -16,7 +16,7 @@ function Write_traffic() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/info/button");
+                const response = await axios.get("/api/info/button");
                 const subwayInfos = response.data.find(info => info.transitType === '지하철');
                 const subwayStations = subwayInfos ? subwayInfos.locationInfos.map(station => station.stationName) : [];
                 const subwayStationIds = subwayInfos ? subwayInfos.locationInfos.map(station => station.stationId) : [];

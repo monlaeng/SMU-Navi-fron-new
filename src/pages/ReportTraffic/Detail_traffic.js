@@ -18,7 +18,7 @@ function Detail_traffic(){
     useEffect( () => {
         axios({
             method: 'get',
-            url: 'http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/info/' + id,
+            url: '/api/info/' + id,
             headers: {
                 "Content-Type": "application/json"
             },
