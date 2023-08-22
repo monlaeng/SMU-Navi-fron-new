@@ -23,7 +23,7 @@ function ReportTraffic(){
         async function fetchData(){
             const result = await axios({
                 method: 'get',
-                url: 'http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/info',
+                url: '/api/info',
                 headers: {
                     "Content-Type": "application/json"
                 },

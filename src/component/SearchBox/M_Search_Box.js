@@ -15,7 +15,7 @@ var pos2 = new kakao.maps.LatLng(37.5211303, 126.7799154);  //sw
 var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
 function M_Search_Box() {
-    const baseUrl = "http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/route/";
+    const baseUrl = "/api/route/";
     const [ways, setWays] = useState([0]);
     const transfer = [];
     let point = [{La: "", Ma: ""}];
@@ -55,7 +55,7 @@ function M_Search_Box() {
     }
 
     async function getRoute() {
-        await axios.get("http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/route")
+        await axios.get("/api/route")
             .then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
                     position[k] = {

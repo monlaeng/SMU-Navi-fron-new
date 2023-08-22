@@ -35,7 +35,7 @@ function Detail_traffic(){
     function onHeartLike(){
         axios({
             method: 'get',
-            url: 'http://smu-navi.ap-northeast-2.elasticbeanstalk.com/api/info/1/likes',
+            url: '/api/info/1/likes',
             headers: {
                 "Content-Type": "application/json"
             },
