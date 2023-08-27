@@ -65,7 +65,6 @@ function Detail_traffic(){
     return(
         <div>
             <MainLogo />
-            <Line/>
             <MenuBar />
             <div className={"Report_big_wrap"}>
                 <div className={"Report_title_wrap"}>

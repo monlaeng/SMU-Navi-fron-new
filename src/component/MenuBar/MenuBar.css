@@ -1,33 +1,49 @@
 .navigation-bar {
-    margin: 20px 0 40px 0;
-    font-size: 20px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center; /* 중앙 정렬 */
-    width: 100%;
+    margin: 20px auto 40px auto;
+    padding: 10px 0;
+    width: 90%;
+    border-radius: 15px;
+    border: 2px solid #0B097A;
+    background-color: white;
 }
 
 .navigation-menu {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; /* 넓게 위치 */
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
 }
 
 .navigation-menu li {
-    margin: 0 7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    font-size: 19px;
+    font-weight: 500;
+    margin-right: 12vw;
+    border-right: 2px solid #CDCDE7;
+}
+
+.navigation-menu li:last-child {
+    margin-right: 0;
+    border-right: 0;
 }
 
 .navigation-link {
-    color: #333;
+    color: #0B097A;
     text-decoration: none;
-    font-weight: bold;
     padding: 5px;
 }
 
-.navigation-link:hover {
-    border-bottom: 3px solid #5A634E;
+.navigation-menu li:hover {
+    color: #0B097A;
+    font-weight: bolder;
+}
+
+
+.navigation-link.active {
+    font-weight: bolder;
+    color: #0B097A;
 }

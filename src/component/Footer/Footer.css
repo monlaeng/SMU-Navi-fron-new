@@ -1,13 +1,15 @@
-.Footer_wrap{
+.Footer_wrap {
     height: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
-    position: absolute;
+    align-items: center;
+    position: fixed;
     bottom: 0;
+    left: 0;
     z-index: 2;
 }
 
-.Footer_wrap img{
-    height: 70px;
+.Footer_wrap img {
+    height: 50px;
 }

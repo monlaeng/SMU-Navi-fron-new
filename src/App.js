@@ -19,8 +19,8 @@ import TrafficList from "./pages/ReportTraffic/TrafficList";
 import Write_ReportTraffic from "./pages/ReportTraffic/Write_traffic";
 import Detail_traffic from "./pages/ReportTraffic/Detail_traffic";
 
-import TakeTaxi from "./pages/TakeTaxi/TakeTaxi";
-import Write_TakeTaxi from './pages/TakeTaxi/Write_TakeTaxi';
+import TipPage from "./pages/TipPage/TipPage";
+// import Write_TakeTaxi from './pages/TakeTaxi/Write_TakeTaxi';
 
 import CCTV from './pages/CCTV/CCTV';
 import Notice from "./pages/Notice/Notice";
@@ -91,8 +91,8 @@ function App(){
                         <Route path="/write_traffic" element={<Write_ReportTraffic />}></Route>
                         <Route path="/detail_traffic/:id" element={<Detail_traffic />}></Route>
 
-                        <Route path="/take_taxi" element={<TakeTaxi />}></Route>
-                        <Route path="/write_takeTaxi" element={<Write_TakeTaxi />}></Route>
+                        <Route path="/tip" element={<TipPage />}></Route>
+                        {/*<Route path="/write_takeTaxi" element={<Write_TakeTaxi />}></Route>*/}
 
                         <Route path="/write_notice" element={<Write_Notice />}></Route>
                         <Route path="/detail_notice/:id" element={<Detail_Notice />}></Route>

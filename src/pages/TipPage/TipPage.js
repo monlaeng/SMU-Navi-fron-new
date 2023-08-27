@@ -4,11 +4,12 @@ import MenuBar from '../../component/MenuBar/MenuBar';
 import Line from '../../component/Line/Line';
 import walk from '../../img/WALK.png';
 import bus from '../../img/busIcon.png';
-function TakeTaxi(){
+import './TakeTaxi.css';
+
+function TipPage(){
     return(
         <div>
             <MainLogo />
-            <Line />
             <MenuBar />
             <div className="header">
                 <p>🍯상명 네비의 꿀팁 대방출🍯</p>
@@ -35,4 +36,4 @@ function TakeTaxi(){
     )
 }
 
-export default TakeTaxi;
+export default TipPage;

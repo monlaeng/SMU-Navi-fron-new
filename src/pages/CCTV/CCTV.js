@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import MainLogo from '../../component/MainLogo/Main_Logo';
-import Line from '../../component/Line/Line';
 import Footer from "../../component/Footer/Footer";
 import "./CCTV.css"
 import MenuBar from "../../component/MenuBar/MenuBar";
@@ -31,7 +30,6 @@ const CCTV = () => {
     return (
         <div className={"Main_wrap"}>
             <MainLogo className={"mainlogo"}/>
-            <Line/>
             <MenuBar/>
             <div id={'cctv-wrapper'}>
                 <div id={"cctv"}>
