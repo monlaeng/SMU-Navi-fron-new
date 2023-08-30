@@ -41,15 +41,6 @@ function MobileLogin(){
             .catch((error) => {
                 alert('로그인 실패');
             });
-
-        // const jwtToken = await signIn(signInPayload)
-        // if(jwtToken){
-        //     setCookie('myToken', token, {
-        //         path: "/",
-        //         secure: true,
-        //         sameSite: "none"
-        //     })
-        // }
     }
 
     return(
@@ -75,8 +66,6 @@ function MobileLogin(){
                     </Link>
                 </div>
             </div>
-
-            <Footer />
         </div>
     )
 }

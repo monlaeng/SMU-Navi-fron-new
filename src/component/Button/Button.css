@@ -11,3 +11,9 @@ button > a{
     color: white;
     text-decoration: none;
 }
+
+@media(min-width: 769px){
+    button{
+        width: 59%;
+    }
+}

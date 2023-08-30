@@ -7,7 +7,7 @@ p{
     align-items: center;
     flex-direction: column;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
 }
 
 .MobileSignupWrap{
@@ -15,8 +15,10 @@ p{
     align-items: center;
     flex-direction: column;
     padding: 0;
-    width: 100vw;
+    margin: 0 auto;
 }
+
+
 .signupWrapMainLogo{
     width: 170px;
     height: 210px;
@@ -26,19 +28,30 @@ p{
     margin: 20px auto 0 auto;
     text-align: center;
 }
-.signupBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 30px;
+
+@media(min-width: 769px){
+    .signupBox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto 30px auto;
+        width: 50vw;
+    }
 }
 
+@media(max-width: 768px){
+    .signupBox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto 30px auto;
+        width: 90vw;
+    }
+}
+
+
 .MobileSignupBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 30px;
-    width: 100vw;
+    width: 80vw;
 }
 
 .signupInputName{
@@ -57,40 +70,41 @@ p{
     flex-direction: column;
 }
 
+.signupInputBoxWrap > div{
+    display: flex;
+}
+
 .signupMailInputBox{
     display: flex;
     flex-direction: row;
 }
 
 #nameSignupInput{
-    width: 170px;
     height: 30px;
 }
 
 #pwSignupInput{
-    width: 415px;
     height: 30px;
 }
 
 #mailSignupInput{
-    width: 150px;
 }
 
 #sameNameCheckBt{
-    margin: auto 0px auto 10px;
-    width: 80px;
+    margin: auto 0 auto 10px;
+    width: 90px;
     height: 30px;
     font-size: 15px;
 }
 
 #certifyNumInput{
-    width: 325px;
+    /*width: 325px;*/
     height: 30px;
 }
 
 #signupBt{
     margin-top: 30px;
-    width: 415px;
+    /*width: 415px;*/
     height: 35px;
     font-size: 18px;
 }

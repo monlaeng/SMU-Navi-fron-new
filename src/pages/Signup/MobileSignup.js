@@ -20,7 +20,7 @@ function MobileSignup(){
     return(
         <div className={"MobileSignupWrap"}>
             <MainLogo />
-            <h2 className={"singupTitle"}>회원가입</h2>
+            <h3 className={"singupTitle"}>회원가입</h3>
             <div className={"MobileSignupInputWrap"}>
                 <SignupInput />
             </div>

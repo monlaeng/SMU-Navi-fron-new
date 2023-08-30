@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import listBt from './../../img/hamburger.svg';
-import clickedHam from './../../img/clickedHam.svg';
+import listBt from './../../img/originHamburger.svg';
+import clickedHam from './../../img/hamburger.svg';
 import logo from './../../img/mobileLogo.svg';
 import { useNavigate } from 'react-router-dom';
-import profile from './../../img/profile.svg';
+import profile from './../../img/profileIcon.svg';
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: auto;
   margin: 0;
   padding: 10px 10px 0 0;
@@ -19,10 +19,18 @@ const Container = styled.div`
 `;
 
 const ListImage = styled.img`
-  width: 50px;
+  width: 30px;
+  margin-left: 10px;
   height: auto;
   cursor: pointer;
 `;
+
+const ListOpenImage = styled.img`
+  width: 40px;
+  margin-top: 5px;
+  height: auto;
+  cursor: pointer;
+`
 
 const LogoImage = styled.img`
   width: 110px;
@@ -31,8 +39,8 @@ const LogoImage = styled.img`
 `;
 
 const ProfileImage = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 `;
 
@@ -42,7 +50,7 @@ const NavContainer = styled.div`
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
   width: 100%;
   height: calc(100% - 60px);
-  background-color: #0B097A;
+  background-color: #F1F4FF;
   transition: left 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -55,12 +63,12 @@ const NavLink = styled.div`
   font-size: 25px;
   font-weight: bolder;
   padding: 20px 10px;
-  color: white;
+  color: #57558C;
 `;
 
 const NavLine = styled.div`
   width: 70%;
-  background-color: white;
+  background-color: #57558C;
   height: 2px;
 `;
 
@@ -84,10 +92,16 @@ const Mobile_Main_Logo = () => {
 
     return (
         <Container>
-            <ListImage
-                src={isNavOpen ? clickedHam : listBt}
-                onClick={handleListImageClick}
-            />
+            { isNavOpen ?
+                <ListOpenImage
+                    src={clickedHam}
+                    onClick={handleListImageClick}
+                /> : <ListImage
+                    src={listBt}
+                    onClick={handleListImageClick}
+                />
+            }
+
             <LogoImage src={logo} onClick={handleLogoClick} />
             <ProfileImage src={profile} onClick={onLogin}/>
             {/* 스르륵 열리는 내비게이션 바 */}

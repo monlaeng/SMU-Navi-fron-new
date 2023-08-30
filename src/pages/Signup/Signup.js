@@ -21,7 +21,6 @@ function Signup(){
         <div className={"signupWrap"}>
             <img src={MainLogo} className={"signupWrapMainLogo"}/>
             <SignupInput />
-            <Footer />
         </div>
     )
 }

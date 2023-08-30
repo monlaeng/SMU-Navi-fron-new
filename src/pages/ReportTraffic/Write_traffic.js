@@ -113,7 +113,6 @@ function Write_traffic() {
     return (
         <div>
             <MainLogo />
-            <Line />
             <MenuBar />
             <div className={"Report_big_wrap"}>
                 <h2>제보하기</h2>

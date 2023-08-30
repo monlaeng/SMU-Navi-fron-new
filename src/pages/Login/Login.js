@@ -70,13 +70,8 @@ function Login(){
                     <Link to={'/signup'} style={{textDecoration: 'none', color: 'black'}}>
                         <p>회원가입</p>
                     </Link>
-                    <Link to={'/findpw'} style={{textDecoration: 'none', color: 'black'}}>
-                        <p>비밀번호 찾기</p>
-                    </Link>
                 </div>
             </div>
-
-            <Footer />
         </div>
     )
 }

@@ -67,41 +67,44 @@ function Detail_traffic(){
             <MainLogo />
             <MenuBar />
             <div className={"Report_big_wrap"}>
-                <div className={"Report_title_wrap"}>
-                    <h2>교통 제보하기</h2>
-                    <p>당일 교통 제보를 제공합니다. 허위 사실 제보는 페널티를 받을 수 있습니다. 교통 제보에 동의 하시면 동의하기를, 제보 관련
-                        사건이 종료되었거나 발생하지 않은 제보라면 반대하기를 눌러주세요</p>
+                <div className={"reportTitle"}>
+                    <div>교통 제보하기 🚨</div>
+                    <p>당일 교통 제보를 제공합니다. 허위 사실 제보는 페널티를 받을 수 있습니다. <br/>
+                        교통 제보에 동의 하시면 동의하기를, 제보 관련
+                        사건이 종료되었거나 발생하지 않은 제보라면
+                        <br/>반대하기를 눌러주세요</p>
                 </div>
                 <div className={"Report_wrap1"}>
-                    <div className={"Report_wrap_title"}>
-                        <h3>{content.title}</h3>
-                        <div>
-                            <p>작성자 : 깐따삐아</p>
-                            <p>작성일 : {date.substr(0,10)}</p>
+                    <div className="reportTitleWrap">
+                        <div className={"reportDetailType"}>
+                            <div>{content.kind == 'demo' ? '시위' : content.kind == 'accident' ? '사고' :  content.kind == 'bus_full' ? '버스 만석' : content.kind == 'bypass' ? '우회' : '그외'}</div>
+                            <div>{content.location == 'Gwanghwamun' ? '광화문' : content.location == 'Gyeongbokgung' ? '경복궁' : content.location == 'CityHall' ? '시청역' : content.location == 'subway' ? '지하철' : '그외'}</div>
                         </div>
-                    </div>
-                    <div className={"Report_detail_type"}>
-                        <p>종류</p>
-                        <button>{content.kind == 'demo' ? '시위' : content.kind == 'accident' ? '사고' :  content.kind == 'bus_full' ? '버스 만석' : content.kind == 'bypass' ? '우회' : '그외'}</button>
-                    </div>
-                    <div className={"Report_detail_location"}>
-                        <p>위치</p>
-                        <button>{content.location == 'Gwanghwamun' ? '광화문' : content.location == 'Gyeongbokgung' ? '경복궁' : content.location == 'CityHall' ? '시청역' : content.location == 'subway' ? '지하철' : '그외'}</button>
+                        <div className={"reportDetailTitle"}>
+                            <h3>{content.title}</h3>
+                            <div>
+                                <p>작성자 : 깐따삐아</p>
+                                <p>작성일 : {date.substr(0,10)}</p>
+                            </div>
+                        </div>
+                        <div className={"Report_wrap_content_heart"}>
+                            <div>
+                                <div onClick={onHeartLike}>
+                                    <p>동의하기</p>
+                                    <img src={heartLike}/>
+                                    <p>{content.countLike}</p>
+                                </div>
+                                <div onClick={onHeartHate}>
+                                    <p>반대하기</p>
+                                    <img src={heartHate}/>
+                                    <p>{content.countHate}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className={"Report_wrap_content"}>
-                        <p>{content.content}</p>
-                        <div className={"Report_wrap_content_heart"}>
-                            <div onClick={onHeartLike}>
-                                <p>동의하기</p>
-                                <img src={heartLike}/>
-                                <p>{content.countLike}</p>
-                            </div>
-                            <div onClick={onHeartHate}>
-                                <p>반대하기</p>
-                                <img src={heartHate}/>
-                                <p>{content.countHate}</p>
-                            </div>
-                        </div>
+                        <p>{content.content}
+                        </p>
                     </div>
                 </div>
             </div>

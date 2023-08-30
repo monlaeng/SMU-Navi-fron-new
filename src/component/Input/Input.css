@@ -4,4 +4,9 @@ input{
     border-radius: 8px;
     padding-left: 10px;
     box-sizing: border-box;
+    width: 100%;
+}
+
+#signupBt{
+    width: 100%;
 }
