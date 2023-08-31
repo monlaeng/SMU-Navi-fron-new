@@ -4,6 +4,9 @@
     height: 80%;
     /*border: black 1px solid;*/
     display: inline-block;
+    text-align: center;
+    align-items: center;
+
 }
 
 #location_list{
@@ -29,7 +32,7 @@
 #placeholder{
     transform: translate(-10px, -10px);
     color: #C6C6C6;
-    z-index: 30;
+    z-index: 1;
     position: relative;
 }
 #list{
@@ -58,30 +61,31 @@
     display: none;
 }
 #M_map{
-    width: 350px;
-    height: 350px;
-    position: absolute;
+    width: 96vw;
+    height: 50vh;
+    position: relative;
     z-index: 0;
-    transform: translate(0, 0);
+    left: -3.5vw;
+
 }
 
 .search-wrapper2{
-    height: 500px;
-    width: 350px;
+    height: 80vh;
+    width:98%;
     background-color: #ffffff;
     stroke: #879B6D;
     border: 1px solid #879B6D;
     position: absolute;
-    left: 10%;
-    bottom: -300px;
+    left: 1vw;
+    bottom: -40vh;
     border-radius: 10px;
-    transform: translate(-30px, 0);
     transition: bottom .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
     touch-action: pan-x;
+    display: inline-block;
 }
 
 .search-wrapper2.on {
-    bottom: 0;
+    bottom: 0vh;
 }
 #ways-list2.on{
     height: 400px;
@@ -103,7 +107,7 @@
     background-color: #ffffff;
     opacity: 0.9;
     width: 340px;
-    height: 150px;
+    height: 50vh;
     overflow-y: scroll;
     overflow-x: hidden;
     text-align: center;

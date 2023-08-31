@@ -1,20 +1,34 @@
+#wrapper{
+    background-color: white;
+    width: 89vw;
+    height: 65vh;
+    display: inline-block;
+    border-radius: 20px;
+    text-align: center;
+}
 .Main_wrap{
-    width: 100vw;
-    height: calc(100vh - 110px);
+    width: 100%;
+    height: 100%;
     margin: auto;
-    padding: 0%;
-    overflow-x: hidden;
+    overflow: hidden;
+    text-align: center;
+    overflow: scroll;
 }
-#greenLine{
-    color: #879B6D;
-    width: 90%;
 
-}
 
 #map{
-    transform: translate(25%, 0vh);
-    margin-bottom: -10vh;
-    width: 70%;
-    height: 76%;
-    z-index: 0;
+    width: 75vw;
+    height: 95%;
+    left: 2vw;
+    bottom: 3vh;
+    z-index: 1;
+    border-radius: 20px;
+
+}
+
+#m_traffic{
+    display: inline-block;
+    position: relative;
+    top: 150px;
+    left: 7vw;
 }
