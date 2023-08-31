@@ -12,10 +12,12 @@ const Map_Main = ({linePath}) => {
         <div className={"Main_wrap"}>
             <MainLogo className={"mainlogo"}/>
             <MenuBar/>
-            <TrafficInfo />
-            <div id='map' ></div>
-            <SearchBox />
-            <Footer />
+            <div id={'wrapper'}>
+                <TrafficInfo />
+                <div id='map' ></div>
+                <SearchBox />
+            </div>
+            {/*<Footer />*/}
         </div>
     );
 }

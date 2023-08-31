@@ -7,15 +7,19 @@ import Line from '../../component/Line/Line';
 import Footer from "../../component/Footer/Footer";
 import M_Main_Logo from "../../component/MainLogo/Mobile_Main_Logo";
 import MenuBar from "../../component/MenuBar/MenuBar";
-import TrafficInfo from "../../component/TrafficInfo/TrafficInfo";
 import {MEDIA_QUERIES, Wrapper} from "../../component/MEDIA_QUERIES/MEDIA_QUERIES";
 import Media from "react-media";
+import TrafficInfo from "../../component/TrafficInfo/TrafficInfo";
+
 const Mobile_Map_Main = ({linePath}) => {
 
 
     return (
         <div className={"Main_wrap"}>
             <Wrapper>
+                <div id={'m_traffic'}>
+                    <TrafficInfo  />
+                </div>
                 <M_Main_Logo className={"mainlogo"}/>
                 <M_Search_Box />
             </Wrapper>

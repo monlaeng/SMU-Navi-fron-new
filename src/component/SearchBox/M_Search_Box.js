@@ -15,7 +15,7 @@ var pos2 = new kakao.maps.LatLng(37.5211303, 126.7799154);  //sw
 var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
 function M_Search_Box() {
-    const baseUrl = "/api/route/";
+    const baseUrl = "http://15.164.99.211/api/route/";
     const [ways, setWays] = useState([0]);
     const transfer = [];
     let point = [{La: "", Ma: ""}];
@@ -55,7 +55,7 @@ function M_Search_Box() {
     }
 
     async function getRoute() {
-        await axios.get("/api/route")
+        await axios.get("http://15.164.99.211/api/route")
             .then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
                     position[k] = {
@@ -444,12 +444,19 @@ function M_Search_Box() {
     function progress(index) {
         var subPathCnt = ways[index].subPathCnt;
         var time = ways[index].time;
+        if (subPathCnt >= 5){
+            var extra = 100%subPathCnt;
+        }
+        else
+        {extra = 0;}
         return(
             <div id = {"progress"}>
                 {transferName[index].map((obj, index3) => (
                     <span id={"wayProgress"} key={index3}>
-                        <span id= {'progressDetail'} style={{width:((obj.sectionTime/29*10 + (time-obj.sectionTime)%10/3 + (time-obj.sectionTime)/10 + subPathCnt/2 )/time*90 + time/10*2)+"%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                        <span id= {'progressDetail'} style={{width: (100/subPathCnt + extra) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                        {/*((obj.sectionTime/29*10 + (time-obj.sectionTime)%10/3 + (time-obj.sectionTime)/10 + subPathCnt/2 )/time*90)+"%"*/}
                     </span>
+
                 ))}
             </div>
         )

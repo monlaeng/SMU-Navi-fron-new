@@ -1,16 +1,20 @@
+#main-wrapper{
+    text-align: left;
+}
 .search-wrapper{
-    height: 65vh;
-    width: 15vw;
+    height: 54vh;
+    width: 20vw;
     margin-top: 110px;
     background-color: #ffffff;
+    opacity: 0.9;
     stroke: #879B6D;
     border: 1px solid #879B6D;
-    position: absolute;
-    left: 10%;
-    top: 15%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transform: translate(28%, -4vh);
+    position: relative;
+    left: 3vw;
+    top: -74vh;
+    border-radius: 10px;
+    text-align: left;
+    z-index: 5;
 }
 
 #Search_box_title{
@@ -21,16 +25,14 @@
 
 }
 
-#Search_title{
-    font-size: 50px;
-}
+
 
 #Search_box_title p{
     text-align: center;
     padding: 10px;
     margin: 30px auto 0 auto;
     color: black;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bolder;
     transform: translate(0, -60%);
 }
@@ -62,23 +64,40 @@
 }
 
 #button_list{
-    transform: translate(88%, -55vh);
-    padding-top: -20px;
-    margin-top: -20px;
-    height: 70%;
-    overflow: scroll;
-    height: calc(80vh - 110px);
+    position: relative;
+    text-align: right;
+    left: 78vw;
+    top: -130vh;
+    width: 8vw;
+    height: 60vh;
+    overflow-y: scroll;
     overflow-x: hidden;
+    padding-right: 1vw;
 }
 
 #button_list button{
-    margin-top: 2%;
-    width: 8%;
+    margin-top: 12%;
+    width: 7vw;
     height: 30px;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    font-size: x-small;
+    background-color: #F1F4FF;
+    color: #505050;
+    border-radius: 10px;
+    box-shadow: #a19f9f 1px 3px 4px 0px;
+    font-size: 0.9vw;
+}
+
+#button_list::-webkit-scrollbar {
+    display: none;
+}
+#button_list button:hover{
+    background-color: #57558C;
+    color: #F1F4FF;
+
+}
+#button_list button:focus{
+    background-color: #57558C;
+    color: #F1F4FF;
+
 }
 
 #showInfo{
@@ -88,7 +107,7 @@
 }
 
 #bestWay{
-    margin-left: 12%;
+    margin-left: 10%;
     text-align: left;
     font-size: small;
 }
@@ -96,7 +115,7 @@
 #time{
     margin-left: 10%;
     text-align: left;
-    font-size: x-large;
+    font-size: larger;
     font-weight: bold;
 }
 
@@ -106,14 +125,14 @@
     align-items: center;
     text-align: left;
     width: 95%;
-    height: 3vh;
 
 }
+
 #icon{
     width: 18px;
     position: relative;
     z-index: 2;
-    transform: translate(0, -7%);
+    transform: translate(0, -15%);
 }
 
 #wayDetail{
@@ -149,21 +168,20 @@
 
 #min{
     position: relative;
-    transform: translate(37%, -160%);
-    font-size: 1px;
+    transform: translate(33%, -170%) scale(80%);
+    font-size:10px;
     font-weight: bold;
     z-index: 3;
 }
 
 #progressDetail{
     width: 35%;
-    height: 15px;
+    height: 12px;
     position: relative;
     z-index: 1;
     display: inline-block;
     border-radius: 10px;
     margin-right: -0.4vw;
-
 }
 #infoDetail{
     display: flex;
