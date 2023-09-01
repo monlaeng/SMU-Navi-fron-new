@@ -7,10 +7,11 @@
     border-radius: 10px;
     text-align: left;
     left: -6.5vw;
-    top: 4vh;
+    top: 6vh;
     z-index: 5;
     background-color: rgba(0, 0, 0, 0.50);
     color: white;
+    overflow: hidden;
 }
 #up{
     display: inline-block;
@@ -52,11 +53,12 @@
     width: 70vw;
     display: inline-block;
     position: absolute;
-    left: 7vw;
+    left: 15vw;
     top: 0.5vh;
-    animation: fadeIn ease-in;
-    animation-iteration-count: infinite;
-    animation-duration: 5950ms;
+    font-size: smaller;
+    /*animation: fadeIn ease-in;*/
+    /*animation-iteration-count: infinite;*/
+    /*animation-duration: 5950ms;*/
 
 }
 
