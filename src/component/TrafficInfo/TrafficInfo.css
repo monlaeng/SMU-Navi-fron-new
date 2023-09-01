@@ -1,33 +1,65 @@
 #traffic{
-    position: absolute;
-    width: 12vw;
-    height: 30vh;
-    border: 1px solid #879B6D;
-    transform: translate(1vw, 0vh);
     display: inline-block;
-
+    position: relative;
+    width: 70vw;
+    height: 30px;
+    border: 1px solid #879B6D;
+    border-radius: 10px;
+    text-align: left;
+    left: -6.5vw;
+    top: 4vh;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.50);
+    color: white;
 }
-
-#pngwing{
-    width: 2.8vw;
-    height: 2.8vw;
+#up{
+    display: inline-block;
     position: absolute;
-    transform: translate(0.5vw, 1vh);
+    left: 1vw;
+    top: 1.3vh;
+}
+#down{
+    display: inline-block;
+    position: absolute;
+    right: 1vw;
+    top: 1.3vh;
+}
+#pngwing{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left:3.2vw;
+    top: 0.3vh;
 }
 
-#traffic_title {
-    transform: translate(3.7vw, -2.5vh);
-    font-size: 20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 10;
+        transform: translateY(0px);
+    }
 }
 
 #infoData {
     text-align: center;
+
 }
 
 #infoWrapper{
-    transform: translate(0, -6vh);
-    width: 12vw;
-    height: 23vh;
-    overflow: scroll;
-    overflow-x: hidden;
+    width: 70vw;
+    display: inline-block;
+    position: absolute;
+    left: 7vw;
+    top: 0.5vh;
+    animation: fadeIn ease-in;
+    animation-iteration-count: infinite;
+    animation-duration: 5950ms;
+
 }
+
+
+
+

@@ -23,7 +23,7 @@ var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
 
 function Search_Box () {
-    const baseUrl = "/api/route/";
+    const baseUrl = "http://15.164.99.211/api/route/";
     const [ways, setWays] = useState([0]);
     const transfer = [];
     let point = [{La: "", Ma: ""}];
@@ -62,7 +62,7 @@ function Search_Box () {
     }
 
     async function getRoute() {
-        await axios.get("/api/route")
+        await axios.get("http://15.164.99.211/api/route")
             .then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
                     position[k] = {
@@ -138,7 +138,7 @@ function Search_Box () {
 
                 kakao.maps.event.addListener(marker, 'click', async function Click ()  {
                     // selectTitle = p.title;
-                    buttonColor(idx);
+                    //buttonColor(idx);
                     resetInfoState();
                     getRemove();
                     await axios
@@ -368,14 +368,14 @@ function Search_Box () {
         drawPoly(i);
     }
 
-    function buttonColor(index) {
-        for(var i = 0; i < position.length; i++) {
-            document.getElementById("locBtn"+i).style.backgroundColor= "white";
-            document.getElementById("locBtn"+i).style.color= "black";
-        }
-        document.getElementById("locBtn"+index).style.backgroundColor = "#879B6D";
-        document.getElementById("locBtn"+index).style.color= "white";
-    }
+    // function buttonColor(index) {
+    //     for(var i = 0; i < position.length; i++) {
+    //         document.getElementById("locBtn"+i).style.backgroundColor= "white";
+    //         document.getElementById("locBtn"+i).style.color= "black";
+    //     }
+    //     document.getElementById("locBtn"+index).style.backgroundColor = "#879B6D";
+    //     document.getElementById("locBtn"+index).style.color= "white";
+    // }
 
 
     function resetInfoState() {
@@ -391,7 +391,7 @@ function Search_Box () {
         const startPoint = position[i].Id;
         getRemove();
         getData(startPoint);
-        buttonColor(i);
+        // buttonColor(i);
 
         var resetShowInfo = showInfo.map((item, idx) => //상세보기&접기 초기화
             item = false
@@ -460,12 +460,19 @@ function Search_Box () {
     function progress(index) {
         var subPathCnt = ways[index].subPathCnt;
         var time = ways[index].time;
+        if (subPathCnt >= 5){
+            var extra = 100%subPathCnt+1;
+        }
+        else
+            {extra = 0;}
         return(
             <div id = {"progress"}>
                 {transferName[index].map((obj, index3) => (
                     <span id={"wayProgress"} key={index3}>
-                        <span id= {'progressDetail'} style={{width:((obj.sectionTime/29*10 + (time-obj.sectionTime)%10/3 + (time-obj.sectionTime)/10 + subPathCnt/2 )/time*90)+"%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                        <span id= {'progressDetail'} style={{width: (100/subPathCnt + extra) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                    {/*((obj.sectionTime/29*10 + (time-obj.sectionTime)%10/3 + (time-obj.sectionTime)/10 + subPathCnt/2 )/time*90)+"%"*/}
                     </span>
+
                 ))}
             </div>
         )
@@ -599,6 +606,7 @@ function Search_Box () {
 
     return(
         <>
+            <div id={'main-wrapper'}>
                 <div style={{height: '0px'}}>
                     <div className={"search-wrapper"}>
                         <div id={"Search_box_title"}><p id={"Search_titile"}>상세경로</p></div>
@@ -611,8 +619,8 @@ function Search_Box () {
                             </div>
                         ))}
                     </div>
-
                 </div>
+            </div>
         </>
        
     )
