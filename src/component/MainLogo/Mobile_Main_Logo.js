@@ -48,7 +48,7 @@ const NavContainer = styled.div`
   position: absolute;
   top: 60px;
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
-  width: 100%;
+  width: 95%;
   height: calc(100% - 60px);
   background-color: #F1F4FF;
   transition: left 0.3s ease-in-out;
@@ -56,7 +56,7 @@ const NavContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center; 
-  z-index: 1;
+  z-index: 100;
 `;
 
 const NavLink = styled.div`

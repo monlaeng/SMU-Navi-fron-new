@@ -6,23 +6,21 @@ import up from '../../img/arrow_up.png';
 import down from '../../img/arrow_down.png';
 import axios from 'axios';
 import useInterval from 'use-interval'
-var testArr = [
-    {index: 1, text: '첫 번째 공지'},
-    {index: 2, text: '두 번째 공지'},
-    {index: 3, text: '세 번째 공지'},
-    {index: 4, text: '네 번째 공지'},
-]
-
-
-
 
 const TrafficInfo = ({traffic_data}) => {   //traffic_data = 받아 올 시위 정보
     const [info, setInfo] = useState([0]);
     const [station, setStation] = useState([0]);
 
     useEffect(() => {
-
         async function fetchData() {
+            if (typeof window !== "undefined") {
+                if (window.innerWidth > 768) {
+                    document.getElementById('traffic').style.width = '70vw';
+                } else {
+                    document.getElementById('traffic').style.width = '90vw';
+                    document.getElementById('pngwing').style.left = '6vw';
+                }
+            }
             await axios
                 .get("http://15.164.99.211/api/accidents")
                 .then((response) => {
@@ -44,13 +42,11 @@ const TrafficInfo = ({traffic_data}) => {   //traffic_data = 받아 올 시위 �
         fetchData();
     }, []);
 
-
 console.log(info)
 
     var cnt = info.length-1;
     var trafficCnt = 0;
     function downClick() {
-
         var infoWrapper = document.getElementById('infoWrapper');
         if(trafficCnt < cnt){
             trafficCnt++;
@@ -58,18 +54,13 @@ console.log(info)
         else{
             trafficCnt = 0;
         }
-        infoWrapper.innerText = station[trafficCnt];
-        console.log(station[trafficCnt]);
-        console.log(trafficCnt);
+        infoWrapper.innerText = station[trafficCnt] + ', ' + info[trafficCnt].kind;
     }
 
-    // const interval = setInterval(downClick,6000);
+    //교통공지 다음 글 자동 클릭;
     useInterval(() => {
         downClick();
     }, 6000);
-
-
-    // window.setInterval(downClick, 6000);
 
     function upClick() {
 
@@ -79,7 +70,7 @@ console.log(info)
         else{
             trafficCnt = cnt;
         }
-        document.getElementById('infoWrapper').innerText = station[trafficCnt];
+        document.getElementById('infoWrapper').innerText = station[trafficCnt] + ', ' + info[trafficCnt].kind;
     }
 
     function isTraffic(){
@@ -87,7 +78,7 @@ console.log(info)
             return(
                 <>
                     <div id={'infoWrapper'} >
-                        {station[0]}
+                        {station[0] + ', ' + info[0].kind}
                     </div>
                 </>
             )
@@ -95,7 +86,7 @@ console.log(info)
         else{
             return(
                 <span id={'infoWrapper'}>
-                    <p>현재 시위 없음</p>
+                    <p>현재 문제 없음</p>
                 </span>
 
             )

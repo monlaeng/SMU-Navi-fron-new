@@ -11,9 +11,8 @@ export const Wrapper = styled.div`
     overflow-y: hidden;
     text-align: center;
     position: absolute;
-    left: 50%;
     transform: translate(-50%);
-    margin-top: 0vh;
+    display: inline-block;
     -ms-overflow-style: none; // IE에서 스크롤바 감춤
     &::-webkit-scrollbar {
     display: none !important; // 윈도우 크롬 등
