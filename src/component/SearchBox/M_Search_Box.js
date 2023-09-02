@@ -617,7 +617,7 @@ function M_Search_Box() {
 
     return(
         <>
-            <div id={'wrapper'}>
+            <div id={'m_wrapper'}>
                 <ul id={'location_list'} onClick={() => {setView(!view)}}>
                     {view ? <img src={up}/> : <img src={down}/>}
                     <p id={'placeholder'} >출발지를 선택해주세요.</p>

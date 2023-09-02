@@ -1,10 +1,20 @@
 #wrapper{
     background-color: white;
-    width: 100%;
+    width: 90%;
+    height: 65vh;
+    display: inline-block;
+    text-align: center;
+    margin-top: 0.1%;
+}
+
+#m_wrapper{
+    background-color: white;
+    width: 90%;
     height: 65vh;
     display: inline-block;
     text-align: center;
 }
+
 .Main_wrap{
     width: 100%;
     height: 100%;
@@ -28,6 +38,6 @@
 #m_traffic{
     display: inline-block;
     position: relative;
-    top: 35px;
+    top: 55px;
     left: 7vw;
 }
