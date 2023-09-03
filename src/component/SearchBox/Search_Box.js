@@ -12,9 +12,6 @@ var verColor = 'black';
 var transitImg = '';
 
 
-// var pos1 = new kakao.maps.LatLng(37.6044854, 126.8918506);  //sw
-// var pos2 = new kakao.maps.LatLng(37.5911303, 126.8799154);  //ne
-
 var pos1 = new kakao.maps.LatLng(37.6744854, 127.0818506);  //ne
 var pos2 = new kakao.maps.LatLng(37.5211303, 126.7799154);  //sw
 var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
@@ -368,16 +365,6 @@ function Search_Box () {
         drawPoly(i);
     }
 
-    // function buttonColor(index) {
-    //     for(var i = 0; i < position.length; i++) {
-    //         document.getElementById("locBtn"+i).style.backgroundColor= "white";
-    //         document.getElementById("locBtn"+i).style.color= "black";
-    //     }
-    //     document.getElementById("locBtn"+index).style.backgroundColor = "#879B6D";
-    //     document.getElementById("locBtn"+index).style.color= "white";
-    // }
-
-
     function resetInfoState() {
         showInfo.forEach(function(item,k){
             item = false;
@@ -387,11 +374,9 @@ function Search_Box () {
 
     function buttonSelect(e, i){
         resetInfoState();
-        // selectTitle = position[i].title;
         const startPoint = position[i].Id;
         getRemove();
         getData(startPoint);
-        // buttonColor(i);
 
         var resetShowInfo = showInfo.map((item, idx) => //상세보기&접기 초기화
             item = false
@@ -470,9 +455,7 @@ function Search_Box () {
                 {transferName[index].map((obj, index3) => (
                     <span id={"wayProgress"} key={index3}>
                         <span id= {'progressDetail'} style={{width: (100/subPathCnt + extra) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
-                    {/*((obj.sectionTime/29*10 + (time-obj.sectionTime)%10/3 + (time-obj.sectionTime)/10 + subPathCnt/2 )/time*90)+"%"*/}
                     </span>
-
                 ))}
             </div>
         )
