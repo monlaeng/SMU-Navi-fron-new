@@ -11,15 +11,6 @@ import "./CCTV.css"
 
 const Mobile_CCTV = () =>  {
 
-    function buttonColor(idx) {
-        document.getElementById("m-cctv1").style.backgroundColor= "white";
-        document.getElementById("m-cctv1").style.color= "black";
-        document.getElementById("m-cctv2").style.backgroundColor= "white";
-        document.getElementById("m-cctv2").style.color= "black";
-        document.getElementById(idx).style.backgroundColor = "#879B6D";
-        document.getElementById(idx).style.color= "white";
-    }
-
     function selectBtn(idx) {
         if(idx === "m-cctv1"){
             document.getElementById('m-myIframe').src = "http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.86850223291543&minY=37.532683171998684&maxX=127.08840516954024&maxY=37.618116676194724";
@@ -37,15 +28,17 @@ const Mobile_CCTV = () =>  {
                 <div id={'m-cctv-wrapper'}>
                     <div id={"m-cctv"}>
                         <div id={'m-button-wrapper'}>
-                            <button id={"m-cctv1"} onClick={() => {selectBtn("m-cctv1"); buttonColor('m-cctv1');}}>광화문</button>
-                            <button id={"m-cctv2"} onClick={() => {selectBtn("m-cctv2"); buttonColor('m-cctv2');}}>시청</button>
+                            <button id={"m-cctv1"} onClick={() => {selectBtn("m-cctv1");}}>광화문</button>
+                            <button id={"m-cctv2"} onClick={() => {selectBtn("m-cctv2"); }}>시청</button>
                         </div>
+                        <div id={"m-iframe-wrapper"}>
                         <iframe id={"m-myIframe"}
                                 src="http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.93801784507436&minY=37.534755415666964&maxX=127.01863625090986&maxY=37.616271305116555"
                                 height="330" width="330" frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen="{true}"></iframe>
-                    </div>
+                        </div>
+                        </div>
                 </div>
             </Wrapper>
         </div>

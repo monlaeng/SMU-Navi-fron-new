@@ -27,7 +27,7 @@ const ListImage = styled.img`
 
 const ListOpenImage = styled.img`
   width: 40px;
-  margin-top: 5px;
+  margin-top: 7px;
   height: auto;
   cursor: pointer;
 `
@@ -48,7 +48,7 @@ const NavContainer = styled.div`
   position: absolute;
   top: 60px;
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
-  width: 95%;
+  width: 100%;
   height: calc(100% - 60px);
   background-color: #F1F4FF;
   transition: left 0.3s ease-in-out;
@@ -64,6 +64,7 @@ const NavLink = styled.div`
   font-weight: bolder;
   padding: 20px 10px;
   color: #57558C;
+  cursor: pointer;
 `;
 
 const NavLine = styled.div`
@@ -82,12 +83,25 @@ const Mobile_Main_Logo = () => {
     const toCCTV = (e) => {
         navigate('/CCTV');
     }
+
+    const toMain = (e) => {
+        navigate('/')
+    }
+
+    const toTip = (e) => {
+        navigate('/tip')
+    }
+
+    const toTraffic = (e) => {
+        navigate('/report_traffic');
+    }
     const handleListImageClick = () => {
         setIsNavOpen((prev) => !prev);
     };
 
     const handleLogoClick = () => {
         setIsNavOpen(false);
+        navigate('/')
     };
 
     return (
@@ -106,11 +120,11 @@ const Mobile_Main_Logo = () => {
             <ProfileImage src={profile} onClick={onLogin}/>
             {/* 스르륵 열리는 내비게이션 바 */}
             <NavContainer isOpen={isNavOpen}>
-                <NavLink>시위 확인하기</NavLink>
+                <NavLink onClick={toMain}>지도 확인하기</NavLink>
                 <NavLine></NavLine>
-                <NavLink>교통 제보하기</NavLink>
+                <NavLink onClick={toTraffic}>교통 제보하기</NavLink>
                 <NavLine></NavLine>
-                <NavLink>꿀팁 확인하기</NavLink>
+                <NavLink onClick={toTip}>꿀팁 확인하기</NavLink>
                 <NavLine></NavLine>
                 <NavLink onClick={toCCTV}>CCTV 확인하기</NavLink>
             </NavContainer>

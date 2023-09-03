@@ -2,21 +2,33 @@ import React, { useState, useEffect } from 'react';
 import './ReportTraffic.css';
 import MainLogo from '../../component/MainLogo/Main_Logo';
 import MenuBar from '../../component/MenuBar/MenuBar';
+import MobileMainLogo from '../../component/MainLogo/Mobile_Main_Logo.js';
 import Catebory_btn from '../../component/Category_btn/Catebory_btn';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Line from '../../component/Line/Line.js';
 
 function Write_traffic() {
+    const host = 'http://15.164.99.211/';
     const [subwayList, setSubwayList] = useState([]);
     const [busList, setBusList] = useState([]);
     const [subwayIdList, setSubwayIdList] = useState([]);
     const [busIdList, setBusIdList] = useState([]);
+    const [screen, setScreen] = useState(window.outerWidth);
+    const [mobile, setMobile] = useState(false);
+    useEffect(()=>{
+        if (screen > 769) {
+            setMobile(false);
+        } else if (screen <= 768) {
+            setMobile(true);
+        }
+        console.log(mobile)
+    }, [])
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("/api/info/button");
+                const response = await axios.get(host + "api/info/button");
                 const subwayInfos = response.data.find(info => info.transitType === '지하철');
                 const subwayStations = subwayInfos ? subwayInfos.locationInfos.map(station => station.stationName) : [];
                 const subwayStationIds = subwayInfos ? subwayInfos.locationInfos.map(station => station.stationId) : [];
@@ -49,13 +61,13 @@ function Write_traffic() {
     }
 
     const onSubmitTraffic = (event) => {
-        console.log(busList);
-        console.log(subwayList);
+        // console.log(busList);
+        // console.log(subwayList);
         event.preventDefault();
 
         axios({
             method: "post",
-            url: "/api/info",
+            url: host + "api/info",
             headers: {
                 "Content-Type": `application/json`,
             },
@@ -112,20 +124,32 @@ function Write_traffic() {
 
     return (
         <div>
-            <MainLogo />
-            <MenuBar />
+            { mobile ?
+                <>
+                    <MobileMainLogo />
+                </>
+                : <>
+                    <MainLogo />
+                    <MenuBar />
+                </>
+            }
             <div className={"Report_big_wrap"}>
-                <h2>제보하기</h2>
-                <div>
-                    <div className={"Notice_write_title_wrap"}>
-                        <input type={"text"} placeholder="제목을 입력하세요" onChange={onTrafficTitleHandler} />
-                    </div>
+                { mobile ?
+                    <h3>제보하기</h3> :
+                <div className={"reportTitle"}>
+                    <div>교통 제보하기 🚨</div>
+                    <p>당일 교통 제보를 제공합니다. 허위 사실 제보는 페널티를 받을 수 있습니다. <br/>
+                        교통 제보에 동의 하시면 동의하기를, 제보 관련
+                        사건이 종료되었거나 발생하지 않은 제보라면
+                        <br/>반대하기를 눌러주세요</p>
+                </div>}
+                <div className="TrafficBigArea">
                     <div className={"Traffic_category_wrap"}>
                         <p>종류</p>
                         {accidentArr.map((elm, index) => (
                             <Catebory_btn
                                 key={index}
-                                isSelected={selectedAccident === elm}
+                                isSelected={selectedAccident === elm} // selectedAccident is a string
                                 handleClick={accidentCategoryClick}
                                 elementIndex={index}
                                 content={elm}
