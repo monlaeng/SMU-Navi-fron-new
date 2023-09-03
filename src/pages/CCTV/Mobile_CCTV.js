@@ -25,6 +25,7 @@ const Mobile_CCTV = () =>  {
         <div className={"Main_wrap"}>
             <Wrapper>
                 <M_Main_Logo className={"mainlogo"}/>
+                <div id={"m-cctv-title"}>CCTV</div>
                 <div id={'m-cctv-wrapper'}>
                     <div id={"m-cctv"}>
                         <div id={'m-button-wrapper'}>
