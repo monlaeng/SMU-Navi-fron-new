@@ -149,7 +149,7 @@ function Write_traffic() {
                         {accidentArr.map((elm, index) => (
                             <Catebory_btn
                                 key={index}
-                                isSelected={selectedAccident === elm}
+                                isSelected={selectedAccident === elm} // selectedAccident is a string
                                 handleClick={accidentCategoryClick}
                                 elementIndex={index}
                                 content={elm}
