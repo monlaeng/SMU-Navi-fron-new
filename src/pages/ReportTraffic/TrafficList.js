@@ -58,7 +58,6 @@ function TrafficList(){
                         <br/>반대하기를 눌러주세요</p>
                 </div>
                 <div className={"Report_search_wrap"}>
-                    <input type={"text"} id="searchPlace" placeholder={"검색어를 입력하세요"}/>
                     <div className={"Report_search"}>
                         <select>
                             <option>최신순</option>

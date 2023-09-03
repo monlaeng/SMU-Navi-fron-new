@@ -64,6 +64,7 @@ const NavLink = styled.div`
   font-weight: bolder;
   padding: 20px 10px;
   color: #57558C;
+  cursor: pointer;
 `;
 
 const NavLine = styled.div`

@@ -97,6 +97,7 @@ const TipBottomBox = styled.div`
 const TipContent = styled.p`
   font-size: 15px;
 `
+
 export default function Mobile_TipPage(){
     return(
         <Container>

@@ -53,11 +53,11 @@ function ReportTraffic(){
     }
 
     function toPrev() {
-        if (slidePx < 0) setSlidePx(slidePx + 225);
+        if (slidePx < 0) setSlidePx(slidePx + 295);
     }
 
     function toNext() {
-        if (slidePx >= (-240 * (contentCount - 6))) setSlidePx(slidePx - 240);
+        if (slidePx >= (-300 * (contentCount - 6))) setSlidePx(slidePx - 300);
     }
 
 
@@ -84,7 +84,7 @@ function ReportTraffic(){
                         {content != ''
                             ? content.map((content, index) => (
                                 <div className="traffic_tab_box_wrap">
-                                    <TrafficTab slide={slidePx} num={index} time={content.createdTime} content={content.content} heartLike={content.likeInfo.likeCount} heartHate={content.likeInfo.hateCount}/>
+                                    <TrafficTab slide={slidePx}  type1={content.kind.description} type2={content.transportation.type} type3={content.transportation.station} num={index} time={content.createdTime} content={content.content} heartLike={content.likeInfo.likeCount} heartHate={content.likeInfo.hateCount}/>
                                 </div>
                             ))
                             : <div className="traffic_tab_box">등록된 글이 없습니다</div>}

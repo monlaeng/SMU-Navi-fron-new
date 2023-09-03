@@ -17,7 +17,6 @@ const Map_Main = ({linePath}) => {
                 <div id='map' ></div>
                 <SearchBox />
             </div>
-            {/*<Footer />*/}
         </div>
     );
 }
