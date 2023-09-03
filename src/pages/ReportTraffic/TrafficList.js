@@ -1,6 +1,7 @@
 import MainLogo from '../../component/MainLogo/Main_Logo';
 import MenuBar from '../../component/MenuBar/MenuBar';
-import Board_list2 from '../../component/Board_list/Board_list2';
+// import Board_list2 from '../../component/Board_list/Board_list2';
+import TrafficLists from '../../component/TrafficList';
 import React, { useState, useEffect, useParams } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,25 +9,34 @@ import './ReportTraffic.css';
 import listIcon from '../../img/listIcon.png';
 
 function TrafficList(){
-
+    const host = 'http://15.164.99.211';
+    const [items, setItems] = useState([]);
     const navigate = useNavigate();
-    const [content, setContent] = useState([]);
-    const [contentId, setContentId] = useState([]);
 
-    useEffect( () => {
+    useEffect(()=>{
         axios({
-            method: 'get',
-            url: 'http://15.164.99.211/api/info',
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then((res) => {
-            setContent(res.data.data);
-            console.log(content);
-        }).catch((error) => {
-            // alert("글을 확인할 수 없습니다. 관리자에게 문의하세요.");
-        });
+            url: host + '/api/info',
+            method: 'GET',
+        }).then(function(response){
+            setItems(response.data.data.itemList);
+        })
     }, [])
+
+    // const [content, setContent] = useState([]);
+    // const [contentId, setContentId] = useState([]);
+
+    // useEffect( () => {
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://15.164.99.211/api/info',
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //     }).then(function(res){
+    //         setContent(res.data.data.itemList);
+    //         console.log(content);
+    //     })
+    // }, [])
 
     function onMoveWriteReport(){
         navigate('/write_traffic');
@@ -48,7 +58,6 @@ function TrafficList(){
                         <br/>반대하기를 눌러주세요</p>
                 </div>
                 <div className={"Report_search_wrap"}>
-                    <input type={"text"} id="searchPlace" placeholder={"검색어를 입력하세요"}/>
                     <div className={"Report_search"}>
                         <select>
                             <option>최신순</option>
@@ -59,16 +68,9 @@ function TrafficList(){
                 </div>
                 <div className={"Report_list_wrap"}>
                     <div>
-                        {content != ''
-                            ? content.map((content, index) => (
-                                <div>
-                                    <img id="listImg" src={listIcon} />
-                                    <div id={content.id} key={index} onClick={e =>onMoveTrafficDetail(content.id)} >
-                                        <Board_list2 num={index} title={content.title} posttime={content.regDate.substr(0,10)} heartLike={content.likes} heartHate={content.hates}/ >
-                                    </div>
-                                </div>
-                            ))
-                            : "등록된 글이 없습니다"}
+                        {items.map((item, index) => (
+                            <TrafficLists type1={item.kind.description} type2={item.transportation.type} type3={item.transportation.station} content={item.content} time={item.createdTime} good={item.likeInfo.likeCount} bad={item.likeInfo.hateCount}/>
+                        ))}
                     </div>
                 </div>
             </div>

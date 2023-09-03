@@ -10,3 +10,7 @@ input{
 #signupBt{
     width: 100%;
 }
+
+#mailSignupInput{
+    width: 48%;
+}

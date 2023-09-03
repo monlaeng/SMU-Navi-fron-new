@@ -23,79 +23,16 @@ function ReportTraffic(){
         async function fetchData(){
             const result = await axios({
                 method: 'get',
-                url: '/api/info',
+                url: 'http://15.164.99.211/api/info',
                 headers: {
                     "Content-Type": "application/json"
                 },
             }).then((res) => {
-                // var data = res.data.data;
-                // var count = res.data.count;
-                // setContentCount(count);
-                // setContent(data);
-            }).catch((error) => {
-                var data = [
-                {
-                    "id": 1,
-                    "title": "2번",
-                    "content": "1번ㅇㄹㅁㅇㄹㅁㄹㅁㅇㄴㄹㅁㅇㄴ2번",
-                    "regDate": "2023-04-05T16:47:11.312675",
-                    "updateDate": null,
-                    "likes": 0,
-                    "hates": 0,
-                    "deleted": false,
-                    "deletedDate": null,
-                    "viewCount": 1
-                },{
-                        "id": 1,
-                        "title": "3번",
-                        "content": "1번ㅇㄹㅁㅇㄹㅁㄹㅁㅇㄴㄹㅁㅇㄴ2번",
-                        "regDate": "2023-04-05T16:47:11.312675",
-                        "updateDate": null,
-                        "likes": 0,
-                        "hates": 0,
-                        "deleted": false,
-                        "deletedDate": null,
-                        "viewCount": 1
-                    },{
-                        "id": 1,
-                        "title": "4번",
-                        "content": "1번ㅇㄹㅁㅇㄹㅁㄹㅁㅇㄴㄹㅁㅇㄴ2번",
-                        "regDate": "2023-04-05T16:47:11.312675",
-                        "updateDate": null,
-                        "likes": 0,
-                        "hates": 0,
-                        "deleted": false,
-                        "deletedDate": null,
-                        "viewCount": 1
-                    },{
-                        "id": 1,
-                        "title": "2번",
-                        "content": "1번ㅇㄹㅁㅇㄹㅁㄹㅁㅇㄴㄹㅁㅇㄴ2번",
-                        "regDate": "2023-04-05T16:47:11.312675",
-                        "updateDate": null,
-                        "likes": 0,
-                        "hates": 0,
-                        "deleted": false,
-                        "deletedDate": null,
-                        "viewCount": 1
-                    },{
-                        "id": 1,
-                        "title": "2번",
-                        "content": "1번ㅇㄹㅁㅇㄹㅁㄹㅁㅇㄴㄹㅁㅇㄴ2번",
-                        "regDate": "2023-04-05T16:47:11.312675",
-                        "updateDate": null,
-                        "likes": 0,
-                        "hates": 0,
-                        "deleted": false,
-                        "deletedDate": null,
-                        "viewCount": 1
-                    }
-                    ]
-                var count = data.count;
-                setContentCount(count);
+                var data = res.data.data.itemList;
+                var count = res.data.data.itemList.length;
                 setContent(data);
-                console.log(contentCount);
-
+                setContentCount(count);
+            }).catch((error) => {
                 // alert("글을 확인할 수 없습니다. 관리자에게 문의하세요.");
             });
         }
@@ -116,11 +53,11 @@ function ReportTraffic(){
     }
 
     function toPrev() {
-        if (slidePx < 0) setSlidePx(slidePx + 225);
+        if (slidePx < 0) setSlidePx(slidePx + 295);
     }
 
     function toNext() {
-        if (slidePx >= (-220 * (contentCount - 4))) setSlidePx(slidePx - 220);
+        if (slidePx >= (-300 * (contentCount - 6))) setSlidePx(slidePx - 300);
     }
 
 
@@ -146,8 +83,8 @@ function ReportTraffic(){
                     <div className={"Report_tab_wrap"}>
                         {content != ''
                             ? content.map((content, index) => (
-                                <div className="traffic_tab_box_wrap" id={content.id} key={index} onClick={e =>onMoveTrafficDetail(content.id)}>
-                                    <TrafficTab slide={slidePx} num={index} time={content.regDate.substr(0,10)} title={content.title} content={content.content} heartLike={content.countLike} heartHate={content.countHate}/>
+                                <div className="traffic_tab_box_wrap">
+                                    <TrafficTab slide={slidePx}  type1={content.kind.description} type2={content.transportation.type} type3={content.transportation.station} num={index} time={content.createdTime} content={content.content} heartLike={content.likeInfo.likeCount} heartHate={content.likeInfo.hateCount}/>
                                 </div>
                             ))
                             : <div className="traffic_tab_box">등록된 글이 없습니다</div>}

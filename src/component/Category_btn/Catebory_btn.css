@@ -6,3 +6,10 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+@media(max-width: 768px){
+    .Category_Button_List{
+        font-size: 10px;
+        padding: 5px 7px;
+    }
+}

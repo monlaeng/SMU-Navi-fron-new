@@ -12,20 +12,20 @@ function TrafficTab(props){
             <div className={"Traffic_tap_time"}>
                 <p>{props.time}</p>
             </div>
-            <div className={"Traffic_tap_title"}>
-                <h3>{props.title}</h3>
+            <div className={"Traffic_tap_type"}>
+                <p>{props.type1}</p>
+                <p>{props.type2}</p>
+                <p>{props.type3}</p>
             </div>
             <div className={"Traffic_tap_content"}>
                 <p>{props.content}</p>
             </div>
             <div className={"Traffic_tap_heart"}>
                 <div id="board_heart">
-                    <p>동의</p>
                     <img src={heartLike}/>
                     <span>{props.heartLike}</span>
                 </div>
                 <div id="board_heart2">
-                    <p>반대</p>
                     <img src={heartHate} />
                     <span>{props.heartHate}</span>
                 </div>

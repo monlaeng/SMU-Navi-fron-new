@@ -5,6 +5,7 @@ button{
     border-radius: 8px;
     cursor: pointer;
     margin: 0;
+    font-size: 14px;
 }
 
 button > a{
