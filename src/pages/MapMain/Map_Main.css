@@ -16,12 +16,9 @@
 }
 
 .Main_wrap{
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    overflow: hidden;
+
     text-align: center;
-    overflow: scroll;
+
 }
 
 
@@ -32,7 +29,7 @@
     bottom: 3vh;
     z-index: 1;
     border-radius: 20px;
-
+    margin-top: 5vh;
 }
 
 #m_traffic{

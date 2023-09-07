@@ -13,7 +13,7 @@ const Map_Main = ({linePath}) => {
             <MainLogo className={"mainlogo"}/>
             <MenuBar/>
             <div id={'wrapper'}>
-                <TrafficInfo />
+                {/*<TrafficInfo />*/}
                 <div id='map' ></div>
                 <SearchBox />
             </div>
