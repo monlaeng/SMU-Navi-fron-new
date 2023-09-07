@@ -4,34 +4,34 @@
     display: inline-block;
     text-align: center;
     align-items: center;
-    margin-top: -5.5vh;
+    margin-top: 0vh;
 }
 
 #location_list{
-    width: 230px;
-    height: 36px;
+    width: 130px;
+    height: 30px;
     font-size: 15px;
     border: 1px solid #0B097A;
     border-radius: 10px;
     display: inline-block;
-    position: static;
-    z-index: 5;
-    text-align: center;
-
+    position: relative;
+    z-index: 7;
+    float: left;
+    background-color: white;
+    left: 1vw;
 }
 
-
-
 #location_list > img{
-    transform: translate(-130px, 10px);
+    transform: translate(50px, 4px);
     position: relative;
     z-index: 6;
 }
 #placeholder{
-    transform: translate(-15px, -10px);
+    transform: translate(-30px, -15px);
     color: #C6C6C6;
     z-index: 7;
     position: relative;
+    font-size: smaller;
 }
 #list{
     margin-top: 15px;
@@ -40,7 +40,7 @@
     position: static;;
 }
 #dropDown {
-    width: 270px;
+    width: 169.5px;
     height: 200px;
     background-color: white;
     z-index: 5;
@@ -51,19 +51,37 @@
     border-width: 0 1px 1px 1px;
     border-radius: 0px 0 10px 10px;
     display: inline-block;
-    transform: translate(-156px, -52px);
+    transform: translate(-105.5px, -43px);
     overflow: scroll;
     -ms-overflow-style: none;
+    font-size: small;
 }
 #dropDown::-webkit-scrollbar{
     display: none;
 }
+
+#floating{
+    width: 45vw;
+    display: inline-block;
+    position: relative;
+    top: 2.5vh;
+    left: 4vw;
+    float: left;
+    z-index: 6;
+}
+#floating>img{
+    margin-right: 10px;
+    box-shadow: 0px 2px 0px 0px #8a8585;
+    border-radius: 20px;
+
+}
+
 #M_map{
-    width: 96vw;
-    height: 50vh;
+    width: 102vw;
+    height: 90vh;
     position: relative;
     z-index: 0;
-    left: -3vw;
+    left: -5.6vw;
 }
 
 .search-wrapper2{
@@ -74,7 +92,7 @@
     border: 1px solid #879B6D;
     position: absolute;
     left: 1vw;
-    bottom: -40vh;
+    bottom: -73vh;
     border-radius: 10px;
     transition: bottom .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
     touch-action: pan-x;
