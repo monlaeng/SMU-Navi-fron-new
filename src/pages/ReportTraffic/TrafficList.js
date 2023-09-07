@@ -28,7 +28,7 @@ function TrafficList(){
     // useEffect( () => {
     //     axios({
     //         method: 'get',
-    //         url: 'http://15.164.99.211/api/info',
+    //         url: 'http://www.smnavi.me/api/info',
     //         headers: {
     //             "Content-Type": "application/json"
     //         },

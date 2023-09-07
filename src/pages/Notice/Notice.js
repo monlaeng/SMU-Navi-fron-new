@@ -29,7 +29,7 @@
 //     useEffect( () => {
 //         axios({
 //             method: 'get',
-//             url: 'http://localhost:8080/api/notice',
+//             url: 'www.smnavi.me//localhost:8080/api/notice',
 //             headers: {
 //                 "Content-Type": "application/json"
 //             },
