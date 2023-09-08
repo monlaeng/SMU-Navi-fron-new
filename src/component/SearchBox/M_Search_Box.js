@@ -12,7 +12,7 @@ import route_off from '../../img/route-off.png';
 import route_on from '../../img/route-on.png';
 import cctv_off from '../../img/cctv_off.png';
 import cctv_on from '../../img/cctv_on.png';
-import busMarker from '../../img/busMarker.png';
+import busMarkerImg from '../../img/busMarker.png';
 
 
 const { kakao } = window;
@@ -20,9 +20,8 @@ var polylines = [];
 var verColor = 'black';
 var transitImg = '';
 
-var busPosition = [];
-var busPositionCnt = '';
-var busMarkers = [];
+// var busPosition = [];
+// var busMarkers = [];
 
 var pos1 = new kakao.maps.LatLng(37.6744854, 127.0818506);  //ne
 var pos2 = new kakao.maps.LatLng(37.5211303, 126.7799154);  //sw
@@ -50,24 +49,26 @@ function M_Search_Box() {
     let prePathCnt = 0;
     let preSubPathCnt = 0;
 
-    //플로팅 아이콘
-    const [accident, setAccident] = useState(false);
-    const [busLocation, setBusLocation] = useState(false);
-    const [cctv, setCctv] = useState(false);
-    const [route, setRoute] = useState(false);
-
 
 
     //영원히 안변할 변수
     const imageSize = new kakao.maps.Size(20, 25);
     const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-    const busMarkerImage = new kakao.maps.MarkerImage(busMarker, imageSize);
-
+    const busMarkerImage = new kakao.maps.MarkerImage(busMarkerImg, imageSize);
 
     const smuImageSize = new kakao.maps.Size(30, 35);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
+
+    //플로팅 아이콘
+    const [accident, setAccident] = useState(false);
+    const [busLocation, setBusLocation] = useState(false);
+    const [cctv, setCctv] = useState(false);
+    const [route, setRoute] = useState(false);
+    const [busPosition, setBusPosition] = useState([]);
+    const [busMarker, setBusMarker] = useState([]);
+
 
     const [showInfo, setShowInfo] = useState([false, false, false, false, false]);
 
@@ -643,11 +644,12 @@ function M_Search_Box() {
         }
     }
 
-    async function getBusLocation() {
-        await axios.get("http://www.smnavi.me/api/bus-position")
+    function getBusLocation() {
+       axios.get("http://www.smnavi.me/api/bus-position")
             .then((response) => {
+                let newBusPosition = []
                 for (let k = 0; k < response.data.data.length; k++) {
-                    busPosition[k] = {
+                    newBusPosition[k] = {
                         Id: response.data.data[k].id,
                         title: response.data.data[k].placeName,
                         x: response.data.data[k].gpsX,
@@ -655,14 +657,16 @@ function M_Search_Box() {
                         latlng: new kakao.maps.LatLng(response.data.data[k].gpsY, response.data.data[k].gpsX),
                     };
                 }
-                busPositionCnt = response.data.data.length-1;
+                setBusPosition(newBusPosition);
+                // createBusMarkers();
             })
             .catch((error) => {
                 console.log(error);
             })
-        createBusMarkers();
-
     }
+    useEffect(() => {
+        createBusMarkers();
+    }, [busPosition])
 
     function createMarker(position, image) {
         var marker = new kakao.maps.Marker({
@@ -680,15 +684,22 @@ function M_Search_Box() {
             var marker = createMarker(busPosition[i].latlng,busMarkerImage);
 
             // 생성된 마커를 커피숍 마커 배열에 추가합니다
-            busMarkers.push(marker);
+            busMarker.push(marker);
         }
+        setBusMarkers(map);
     }
 
     // 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
     function setBusMarkers(map) {
-        for (var i = 0; i < busMarkers.length; i++) {
-            busMarkers[i].setMap(map);
+        let newBusMarker = [];
+        for (var i = 0; i < busMarker.length; i++) {
+            busMarker[i].setMap(map);
         }
+        if(map === null) {
+           setBusMarker(newBusMarker);
+        }
+        console.log(busPosition.length);
+        console.log(busMarker.length);
     }
 
 
@@ -709,7 +720,7 @@ function M_Search_Box() {
                         {route ? <img onClick={() => {setRoute(!route)}} src={route_on}/> : <img onClick={() => {setRoute(!route)}} src={route_off}/>}
                         {accident ? <img onClick={() => {setAccident(!accident)}} src={accident_on}/> : <img onClick={() => {setAccident(!accident)}} src={accident_off}/>}
                         {cctv ? <img onClick={() => {setCctv(!cctv)}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv)}} src={cctv_off}/>}
-                        {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); setBusMarkers(map);}} src={busLocation_off}/>}
+                        {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); }} src={busLocation_off}/>}
                     </div>
                 </div>
                 <div className={"search-wrapper2"}>
