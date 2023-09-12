@@ -145,7 +145,8 @@ function M_Search_Box() {
                     position: p.latlng,
                     title: p.title,
                     image: markerImage,
-                    clickable: true
+                    clickable: true,
+                    zIndex : 10,
                 });
                 marker.setMap(map);
                 // setTransferName(null);
@@ -168,7 +169,6 @@ function M_Search_Box() {
                     await axios
                         .get(baseUrl + p.Id)
                         .then((response) => {
-                            console.log(response)
                             let newWays = [];
                             let newTransferName = [];
                             let newWayTime = [];
@@ -328,10 +328,6 @@ function M_Search_Box() {
                     }
                     polylines[k].setMap(map);
                 }
-                console.log(linePath)
-                console.log(point)
-                console.log(polylines)
-                console.log(ways)
             })
             .catch((error) => {
                 console.log(error);
@@ -631,13 +627,11 @@ function M_Search_Box() {
     function detailUP(){
         if ( document.querySelector('.search-wrapper2').classList.contains('on') ){
             //메뉴닫힘
-            console.log('닫힘')
             document.querySelector('.search-wrapper2').classList.remove('on');
             document.getElementById('ways-list2').classList.remove('on');
 
         } else {
             //메뉴펼처짐
-            console.log('열림')
             document.querySelector('.search-wrapper2').classList.add('on');
             document.getElementById('ways-list2').classList.add('on');
 
@@ -698,8 +692,6 @@ function M_Search_Box() {
         if(map === null) {
            setBusMarker(newBusMarker);
         }
-        console.log(busPosition.length);
-        console.log(busMarker.length);
     }
 
 
