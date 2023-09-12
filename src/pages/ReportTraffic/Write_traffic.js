@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Line from '../../component/Line/Line.js';
 
 function Write_traffic() {
-    const host = 'http://www.smnavi.me/';
+    const host = 'https://www.smnavi.me/';
     const [subwayList, setSubwayList] = useState([]);
     const [busList, setBusList] = useState([]);
     const [subwayIdList, setSubwayIdList] = useState([]);
