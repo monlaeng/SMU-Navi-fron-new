@@ -25,7 +25,7 @@ function MobileLogin(){
     function onSubmitLogin(){
         axios({
             method: 'post',
-            url: "http://localhost:8080/api/user/login",
+            url: "https://localhost:8080/api/user/login",
             headers: {
                 "Content-Type": `application/json`,
             },
