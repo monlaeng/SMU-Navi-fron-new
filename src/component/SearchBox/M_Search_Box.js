@@ -13,6 +13,7 @@ import route_on from '../../img/route-on.png';
 import cctv_off from '../../img/cctv_off.png';
 import cctv_on from '../../img/cctv_on.png';
 import busMarkerImg from '../../img/busMarker.png';
+import issueBusMarker from '../../img/issue_bus.png';
 
 
 const { kakao } = window;
@@ -30,7 +31,7 @@ var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
 
 function M_Search_Box() {
-    const baseUrl = "http://www.smnavi.me/api/route/";
+    const baseUrl = "https://www.smnavi.me/api/route/";
     const [ways, setWays] = useState([0]);
     const transfer = [];
     let point = [{La: "", Ma: ""}];
@@ -38,7 +39,7 @@ function M_Search_Box() {
     const [transferName, setTransferName] = useState([]);
     const [wayTime, setWayTime]= useState([]);
     const [map, setMap] = useState();
-    let [position,setposition] = useState([]);
+
     // let [busPosition,setBusPosition] = useState([]);
 
 
@@ -56,6 +57,7 @@ function M_Search_Box() {
     const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
     const busMarkerImage = new kakao.maps.MarkerImage(busMarkerImg, imageSize);
+    const issueBusImage = new kakao.maps.MarkerImage(issueBusMarker, imageSize);
 
     const smuImageSize = new kakao.maps.Size(30, 35);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
@@ -68,6 +70,8 @@ function M_Search_Box() {
     const [route, setRoute] = useState(false);
     const [busPosition, setBusPosition] = useState([]);
     const [busMarker, setBusMarker] = useState([]);
+    const [position,setposition] = useState([]);
+    const [basicMarker, setBasicMarker] = useState([]);
 
 
     const [showInfo, setShowInfo] = useState([false, false, false, false, false]);
@@ -84,7 +88,7 @@ function M_Search_Box() {
     }
 
     async function getRoute() {
-        await axios.get("http://www.smnavi.me/api/route")
+        await axios.get("https://www.smnavi.me/api/route")
             .then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
                     position[k] = {
@@ -104,42 +108,10 @@ function M_Search_Box() {
     }
 
     useEffect(  () => {
+
         async function fetchData() {
             await getRoute();
-
-            const mapContainer = document.getElementById('M_map'), // 지도를 표시할 div
-                mapOption = {
-                    center: new kakao.maps.LatLng(37.596826, 126.9586567),
-                    level: 8 // 지도의 확대 레벨
-
-                };
-
-            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-            const map = new kakao.maps.Map(mapContainer, mapOption);
-            map.setMaxLevel(8);
-            setMap(map);
-
-            var constrainBounds = function() {
-                var center = map.getCenter();
-
-                var clipLat, clipLng, sw, ne;
-
-                if (!bounds.contain(center)) {
-
-                    sw = bounds.getSouthWest();
-                    ne = bounds.getNorthEast();
-
-                    clipLat = Math.min(Math.max(sw.getLat(), center.getLat()), ne.getLat());
-                    clipLng = Math.min(Math.max(sw.getLng(), center.getLng()), ne.getLng());
-
-                    map.setCenter(new kakao.maps.LatLng(clipLat, clipLng));
-                }
-            };
-
-            kakao.maps.event.addListener( map, 'drag', constrainBounds);
-            kakao.maps.event.addListener( map, 'zoom_changed', constrainBounds);
             position.map((p, idx) => {
-
                 var marker = new kakao.maps.Marker({
                     map: map,
                     position: p.latlng,
@@ -148,22 +120,11 @@ function M_Search_Box() {
                     clickable: true,
                     zIndex : 10,
                 });
-                marker.setMap(map);
-                // setTransferName(null);
-
-                var smuMarker = new kakao.maps.Marker({
-                    map: map,
-                    position : new kakao.maps.LatLng(37.6026, 126.9553),
-                    title: '상명대학교',
-                    image: smuMarkerImage
-                });
-                smuMarker.setMap(map);
-
-
+                basicMarker.push(marker);
                 kakao.maps.event.addListener(marker, 'click', async function Click ()  {
                     // selectTitle = p.title;
-                    document.getElementById("placeholder").innerText = p.title
-
+                    document.getElementById("placeholder").innerText = p.title;
+                    console.log(marker.getTitle());
                     resetInfoState();
                     getRemove();
                     await axios
@@ -244,11 +205,51 @@ function M_Search_Box() {
                             console.log(error);
                         })
                 });
+            })
+
+            const mapContainer = document.getElementById('M_map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.596826, 126.9586567),
+                    level: 8 // 지도의 확대 레벨
+                };
+
+            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            const map = new kakao.maps.Map(mapContainer, mapOption);
+            map.setMaxLevel(8);
+            setMap(map);
+
+            var constrainBounds = function() {
+                var center = map.getCenter();
+
+                var clipLat, clipLng, sw, ne;
+
+                if (!bounds.contain(center)) {
+
+                    sw = bounds.getSouthWest();
+                    ne = bounds.getNorthEast();
+
+                    clipLat = Math.min(Math.max(sw.getLat(), center.getLat()), ne.getLat());
+                    clipLng = Math.min(Math.max(sw.getLng(), center.getLng()), ne.getLng());
+
+                    map.setCenter(new kakao.maps.LatLng(clipLat, clipLng));
+                }
+            };
+
+            kakao.maps.event.addListener( map, 'drag', constrainBounds);
+            kakao.maps.event.addListener( map, 'zoom_changed', constrainBounds);
+            var smuMarker = new kakao.maps.Marker({
+                map: map,
+                position : new kakao.maps.LatLng(37.6026, 126.9553),
+                title: '상명대학교',
+                image: smuMarkerImage
             });
+            smuMarker.setMap(map);
         }
         fetchData();
 
     }, []);
+
+
 
     async function getData(p) {
         getRemove();
@@ -639,20 +640,23 @@ function M_Search_Box() {
     }
 
     function getBusLocation() {
-       axios.get("http://www.smnavi.me/api/bus-position")
+       axios.get("https://www.smnavi.me/api/test/bus-position")
             .then((response) => {
                 let newBusPosition = []
                 for (let k = 0; k < response.data.data.length; k++) {
                     newBusPosition[k] = {
-                        Id: response.data.data[k].id,
-                        title: response.data.data[k].placeName,
+                        licensePlate: response.data.data[k].licensePlate,
                         x: response.data.data[k].gpsX,
                         y: response.data.data[k].gpsY,
                         latlng: new kakao.maps.LatLng(response.data.data[k].gpsY, response.data.data[k].gpsX),
+                        hasIssue:  Boolean(response.data.data[k].hasIssue),
+                        issueMessage : response.data.data[k].issueMessage,
                     };
+                    console.log(String.valueOf(response.data.data[k].hasIssue));
                 }
                 setBusPosition(newBusPosition);
-                // createBusMarkers();
+                console.log(response);
+                console.log(newBusPosition);
             })
             .catch((error) => {
                 console.log(error);
@@ -670,14 +674,24 @@ function M_Search_Box() {
 
         return marker;
     }
+
+    function setBasicMarkers(map) {
+        for (var i = 0; i < basicMarker.length; i++) {
+            basicMarker[i].setMap(map);
+        }
+        if(map === null){
+            document.getElementById("placeholder").innerText = '출발지를 선택해주세요.';
+        }
+    }
+
     function createBusMarkers() {
-
         for (var i = 0; i < busPosition.length; i++) {
-
-            // 마커이미지와 마커를 생성합니다
-            var marker = createMarker(busPosition[i].latlng,busMarkerImage);
-
-            // 생성된 마커를 커피숍 마커 배열에 추가합니다
+            if(busPosition[i].issueMessage != null) {
+                var marker = createMarker(busPosition[i].latlng, issueBusImage);
+            }
+            else {
+                marker = createMarker(busPosition[i].latlng,busMarkerImage);
+            }
             busMarker.push(marker);
         }
         setBusMarkers(map);
@@ -709,7 +723,7 @@ function M_Search_Box() {
 
                     </ul>
                     <div id={'floating'}>
-                        {route ? <img onClick={() => {setRoute(!route)}} src={route_on}/> : <img onClick={() => {setRoute(!route)}} src={route_off}/>}
+                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
                         {accident ? <img onClick={() => {setAccident(!accident)}} src={accident_on}/> : <img onClick={() => {setAccident(!accident)}} src={accident_off}/>}
                         {cctv ? <img onClick={() => {setCctv(!cctv)}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv)}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); }} src={busLocation_off}/>}

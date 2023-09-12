@@ -50,7 +50,7 @@ function SignupInput(){
     function signUpSubmit(){
         axios({
             method: 'post',
-            url: 'http://localhost:8093/api/user/signup',
+            url: 'https://localhost:8093/api/user/signup',
             headers: {
                 "Content-Type": `application/json`,
             },

@@ -20,7 +20,7 @@ var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
 
 function Search_Box () {
-    const baseUrl = "http://www.smnavi.me/api/route/";
+    const baseUrl = "https://www.smnavi.me/api/route/";
     const [ways, setWays] = useState([0]);
     const transfer = [];
     let point = [{La: "", Ma: ""}];
@@ -59,7 +59,7 @@ function Search_Box () {
     }
 
     async function getRoute() {
-        await axios.get("http://www.smnavi.me/api/route")
+        await axios.get("https://www.smnavi.me/api/route")
             .then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
                     position[k] = {

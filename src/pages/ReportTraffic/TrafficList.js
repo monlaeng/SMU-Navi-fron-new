@@ -9,7 +9,7 @@ import './ReportTraffic.css';
 import listIcon from '../../img/listIcon.png';
 
 function TrafficList(){
-    const host = 'http://15.164.99.211';
+    const host = 'https://15.164.99.211';
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function TrafficList(){
     // useEffect( () => {
     //     axios({
     //         method: 'get',
-    //         url: 'http://www.smnavi.me/api/info',
+    //         url: 'https://www.smnavi.me/api/info',
     //         headers: {
     //             "Content-Type": "application/json"
     //         },

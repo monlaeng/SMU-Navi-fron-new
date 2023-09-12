@@ -30,7 +30,7 @@
 //     //     // POST 요청으로 로그인
 //     //     axios({
 //     //         method: "post",
-//     //         url: "http://localhost:8080/api/notice",
+//     //         url: "https://localhost:8080/api/notice",
 //     //         headers: {
 //     //             "Content-Type": `application/json`,
 //     //         },
