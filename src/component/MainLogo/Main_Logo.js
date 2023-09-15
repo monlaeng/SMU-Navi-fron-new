@@ -18,16 +18,16 @@ export default function Main_Logo(){
 
     const onLogout = (e) => {
         axios({
-            url: 'https://smnavi.me/api/user/logout',
+            url: 'https://www.smnavi.me/api/user/logout',
             method: 'post',
             headers:{
-                "Authorization": "Bearer " + token
-            }
+                "Authorization": "Bearer " + token,
+            },
         }).then((res) => {
             alert('로그아웃 되었습니다.');
             localStorage.clear();
         }).catch((error) => {
-            alert('로그인할 수 없습니다.');
+            alert('로그아웃할 수 없습니다.');
         })
     }
 

@@ -9,7 +9,7 @@ import './ReportTraffic.css';
 import listIcon from '../../img/listIcon.png';
 
 function TrafficList(){
-    const host = 'https://15.164.99.211';
+    const host = 'https://www.smnavi.me';
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
