@@ -14,3 +14,7 @@ input{
 #mailSignupInput{
     width: 48%;
 }
+
+#redPwTitle{
+    margin: 0;
+}

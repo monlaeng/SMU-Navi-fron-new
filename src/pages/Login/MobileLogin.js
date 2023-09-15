@@ -25,7 +25,7 @@ function MobileLogin(){
     function onSubmitLogin(){
         axios({
             method: 'post',
-            url: "http://localhost:8080/api/user/login",
+            url: "https://www.smnavi.me/api/user/login",
             headers: {
                 "Content-Type": `application/json`,
             },
@@ -36,6 +36,8 @@ function MobileLogin(){
             withCredentials: true,
         }) .then((res) => {
             alert('로그인 완료');
+            localStorage.setItem('token', res.data.token);
+            console.log(localStorage.getItem('token'));
             navigate('/notice');
         })
             .catch((error) => {
