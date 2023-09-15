@@ -35,9 +35,9 @@ function Login(){
             },
             withCredentials: true,
         }) .then((res) => {
+            localStorage.setItem('token', res.data.data.token);
             alert('로그인 완료');
-            console.log(res);
-            navigate('/notice');
+            navigate('/');
         })
         .catch((error) => {
             alert('로그인 실패');

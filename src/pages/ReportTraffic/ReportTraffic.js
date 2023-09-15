@@ -12,6 +12,7 @@ import Line from '../../component/Line/Line'
 
 function ReportTraffic(){
 
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [content, setContent] = useState([]);
     const [contentCount, setContentCount] = useState();
@@ -25,7 +26,8 @@ function ReportTraffic(){
                 method: 'get',
                 url: 'https://www.smnavi.me/api/info',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + token
                 },
             }).then((res) => {
                 var data = res.data.data.itemList;

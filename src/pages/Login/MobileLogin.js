@@ -35,14 +35,13 @@ function MobileLogin(){
             },
             withCredentials: true,
         }) .then((res) => {
+            localStorage.setItem('token', res.data.data.token);
             alert('로그인 완료');
-            localStorage.setItem('token', res.data.token);
-            console.log(localStorage.getItem('token'));
-            navigate('/notice');
+            navigate('/');
         })
-            .catch((error) => {
-                alert('로그인 실패');
-            });
+        .catch((error) => {
+            alert('로그인 실패');
+        });
     }
 
     return(

@@ -2,10 +2,12 @@ import React from 'react';
 import './Main_Logo.css';
 import Logo from '../../img/realLogo.svg';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 export default function Main_Logo(){
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
+
     const onLogin = (e) => {
         navigate('/login');
     }
@@ -14,10 +16,28 @@ export default function Main_Logo(){
         navigate('/');
     }
 
+    const onLogout = (e) => {
+        axios({
+            url: 'https://smnavi.me/api/user/logout',
+            method: 'post',
+            headers:{
+                "Authorization": "Bearer " + token
+            }
+        }).then((res) => {
+            alert('로그아웃 되었습니다.');
+            localStorage.clear();
+        }).catch((error) => {
+            alert('로그인할 수 없습니다.');
+        })
+    }
+
     return(
         <div className={"Main_logo_title_wrap"}>
             <div id={"MainLogo"}><img src={Logo} onClick={moveMain}/></div>
-            <button id={"loginBtn"} type="button" onClick={onLogin}>로그인</button>
+            { token ?
+                <button id={"loginBtn"} type="button" onClick={onLogout}>로그아웃</button>
+                : <button id={"loginBtn"} type="button" onClick={onLogin}>로그인</button>
+            }
         </div>
     )
 }

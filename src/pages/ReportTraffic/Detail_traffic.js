@@ -11,6 +11,7 @@ import axios from 'axios';
 import Line from '../../component/Line/Line.js'
 
 function Detail_traffic(){
+    const token = localStorage.getItem('token');
     const { id } = useParams();
     const navigate = useNavigate();
     const [content, setContent] = useState([]);
@@ -20,7 +21,8 @@ function Detail_traffic(){
             method: 'get',
             url: '/api/info/' + id,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorizatin": "Bearer " + token
             },
         }).then((res) => {
             setContent(res.data);
@@ -37,7 +39,8 @@ function Detail_traffic(){
             method: 'get',
             url: '/api/info/1/likes',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
             },
         }).then((res) => {
             alert("좋아요 클릭!");
@@ -52,7 +55,8 @@ function Detail_traffic(){
             method: 'get',
             url: 'https://localhost:8080/api/info/1/hates',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
             },
         }).then((res) => {
             alert("싫어요 클릭!");
