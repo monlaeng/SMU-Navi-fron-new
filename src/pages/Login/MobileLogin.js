@@ -25,6 +25,7 @@ function MobileLogin(){
     function onSubmitLogin(){
         axios({
             method: 'post',
+<<<<<<< HEAD
             url: "https://www.smnavi.me/api/user/login",
             headers: {
                 "Content-Type": `application/json`,

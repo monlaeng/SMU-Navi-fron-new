@@ -72,7 +72,11 @@ function SignupInput(){
     function sameNameCheck(){
         axios({
             method: 'post',
+<<<<<<< HEAD
             url: 'https://www.smnavi.me/api/user/check-duplicate-nickname',
+=======
+            url: 'https://localhost:8093/api/user/signup',
+>>>>>>> 19a230437eaecbaf710aa208f4340c2fb2101df7
             headers: {
                 "Content-Type": `application/json`,
             },

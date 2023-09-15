@@ -68,7 +68,11 @@ const ListBox = styled.div`
 `
 
 export default function Mobile_Traffic(){
+<<<<<<< HEAD
     const host = 'https://www.smnavi.me/';
+=======
+    const host = 'https://15.164.99.211';
+>>>>>>> 19a230437eaecbaf710aa208f4340c2fb2101df7
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 

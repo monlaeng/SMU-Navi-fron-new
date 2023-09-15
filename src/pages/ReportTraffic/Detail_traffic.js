@@ -50,7 +50,7 @@ function Detail_traffic(){
     function onHeartHate(){
         axios({
             method: 'get',
-            url: 'http://localhost:8080/api/info/1/hates',
+            url: 'https://localhost:8080/api/info/1/hates',
             headers: {
                 "Content-Type": "application/json"
             },

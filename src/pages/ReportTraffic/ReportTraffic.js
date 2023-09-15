@@ -23,7 +23,7 @@ function ReportTraffic(){
         async function fetchData(){
             const result = await axios({
                 method: 'get',
-                url: 'http://15.164.99.211/api/info',
+                url: 'https://www.smnavi.me/api/info',
                 headers: {
                     "Content-Type": "application/json"
                 },

@@ -16,7 +16,7 @@ function Detail_notice(){
     useEffect( () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/api/notice/' + id,
+            url: 'https://localhost:8080/api/notice/' + id,
             headers: {
                 "Content-Type": "application/json"
             },
@@ -31,7 +31,7 @@ function Detail_notice(){
     function Delete_Notice(){
         axios({
             method: 'delete',
-            url: 'http://localhost:8080/api/notice' + id,
+            url: 'https://localhost:8080/api/notice' + id,
             headers:{
                 "Content-Type": "application/json"
             },

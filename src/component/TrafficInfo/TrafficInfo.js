@@ -22,7 +22,7 @@ const TrafficInfo = ({traffic_data}) => {   //traffic_data = 받아 올 시위 �
                 }
             }
             await axios
-                .get("http://15.164.99.211/api/accidents")
+                .get("https://www.smnavi.me/api/accidents")
                 .then((response) => {
                     console.log(response.data)
                     let newInfo = [];
