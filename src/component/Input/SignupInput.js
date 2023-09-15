@@ -72,11 +72,7 @@ function SignupInput(){
     function sameNameCheck(){
         axios({
             method: 'post',
-<<<<<<< HEAD
             url: 'https://www.smnavi.me/api/user/check-duplicate-nickname',
-=======
-            url: 'https://localhost:8093/api/user/signup',
->>>>>>> 19a230437eaecbaf710aa208f4340c2fb2101df7
             headers: {
                 "Content-Type": `application/json`,
             },
@@ -146,10 +142,10 @@ function SignupInput(){
             },
             data: {
                 'email' : emailChk + '@sangmyung.kr',
-                'certificationCode': certificationNum
+                'certificationKey': certificationNum
             }
         }).then((res) => {
-            alert(res.data.message);
+            alert('인증되었습니다.');
             setSignup(true);
         }).catch((data) => {
             alert('인증번호를 다시 입력해주세요');
