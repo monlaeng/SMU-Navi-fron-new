@@ -26,6 +26,7 @@ export default function Main_Logo(){
         }).then((res) => {
             alert('로그아웃 되었습니다.');
             localStorage.clear();
+            window.location.reload();
         }).catch((error) => {
             alert('로그아웃할 수 없습니다.');
         })
