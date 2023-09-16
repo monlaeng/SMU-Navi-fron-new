@@ -24,11 +24,12 @@ function ReportTraffic(){
         async function fetchData(){
             const result = await axios({
                 method: 'get',
-                url: 'https://www.smnavi.me/api/info',
+                url: 'https://www.smnavi.me/api/info?isMine=0',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token
                 },
+                data: {}
             }).then((res) => {
                 var data = res.data.data.itemList;
                 var count = res.data.data.itemList.length;
@@ -61,7 +62,6 @@ function ReportTraffic(){
     function toNext() {
         if (slidePx >= (-300 * (contentCount - 6))) setSlidePx(slidePx - 300);
     }
-
 
     return(
         <div>

@@ -21,11 +21,12 @@ function TrafficList(){
 
     useEffect(()=>{
         axios({
-            url: host + '/api/info?page=0&size=7',
+            url: host + '/api/info?page=0&size=7&isMine=0',
             method: 'GET',
             headers:{
                 'Authorization': 'Bearer ' + token
-            }
+            },
+            data: {}
         }).then(function(response){
             setItems(response.data.data.itemList);
             setPosts(response.data.data);
@@ -34,7 +35,7 @@ function TrafficList(){
 
     function pagination(num) {
         axios({
-            url: host + `/api/info?page=${num - 1}&size=${postsPerPage}`,
+            url: host + `/api/info?page=${num - 1}&size=${postsPerPage}&isMine=0`,
             method: 'GET',
         }).then(function (response) {
             setItems(response.data.data.itemList);

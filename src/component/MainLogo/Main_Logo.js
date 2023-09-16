@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Main_Logo.css';
 import Logo from '../../img/realLogo.svg';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,13 @@ export default function Main_Logo(){
             onLogout();
         })
     }
+
+    useEffect(() => {
+        console.log(new Date().getTime() + 30 * 60 * 1000);
+        // if (new Date().getTime() + 30 * 60 * 1000 >= expiredIn) {
+        //     리프레쉬
+        // }
+    })
 
     const onLogout = (e) => {
         axios({

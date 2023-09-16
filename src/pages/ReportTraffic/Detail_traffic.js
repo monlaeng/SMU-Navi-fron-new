@@ -77,7 +77,7 @@ function Detail_traffic(){
             data: {}
         }).then((res) => {
             alert('제보글이 삭제되었습니다.');
-            navigate(-1);
+            window.location.reload();
         }).catch((error) => {
             alert(error.response.data.message);
         })
@@ -117,6 +117,7 @@ function Detail_traffic(){
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
             },
+            data: {}
         }).then((res) => {
             alert("싫어요를 클릭하셨습니다.");
             window.location.replace("/detail_traffic/" + id);
