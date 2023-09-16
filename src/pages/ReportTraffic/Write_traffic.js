@@ -10,6 +10,7 @@ import Line from '../../component/Line/Line.js';
 
 function Write_traffic() {
     const host = 'https://www.smnavi.me/';
+    const token = localStorage.getItem('token');
     const [subwayList, setSubwayList] = useState([]);
     const [busList, setBusList] = useState([]);
     const [subwayIdList, setSubwayIdList] = useState([]);
@@ -22,7 +23,6 @@ function Write_traffic() {
         } else if (screen <= 768) {
             setMobile(true);
         }
-        console.log(mobile)
     }, [])
 
     useEffect(() => {
@@ -70,13 +70,15 @@ function Write_traffic() {
             url: host + "api/info",
             headers: {
                 "Content-Type": `application/json`,
+                'Authorization' : 'Bearer ' + token
             },
             data: {
                 "transitType": selectedSubway == '지하철' || selectedSubway == 'SUBWAY' ? 'SUBWAY' : 'BUS',
                 "kind": selectedAccident,
                 "stationId": selectedSubwayId,
                 "title": trafficTitle,
-                "content": trafficContent
+                "content": trafficContent,
+                "password": inputPw
             },
         })
         .then((res) => {
@@ -89,6 +91,7 @@ function Write_traffic() {
 
     }
 
+    const [inputPw, setInputPw] = useState('');
     const accidentArr = ['시위', '사고', '버스만석', '우회', '그외'];
     const subwayArr = ['버스', '지하철'];
 
@@ -121,7 +124,9 @@ function Write_traffic() {
         setSelectedSubwayId(busIdList[index]);
     };
 
-
+    const setPassword = (e) => {
+        setInputPw(e.target.value);
+    }
     return (
         <div>
             { mobile ?
@@ -144,6 +149,16 @@ function Write_traffic() {
                         <br/>반대하기를 눌러주세요</p>
                 </div>}
                 <div className="TrafficBigArea">
+                    { token == null || token == ''
+                        ?   <div className={"password_input_wrap"}>
+                                <p>비밀번호</p>
+                                <input type="password"
+                                       placeholder="비밀번호를 입력하세요"
+                                       onChange={setPassword}
+                                />
+                            </div>
+                        : <></>
+                    }
                     <div className={"Traffic_category_wrap"}>
                         <p>종류</p>
                         {accidentArr.map((elm, index) => (

@@ -99,15 +99,21 @@ export default function Mobile_Traffic(){
                     </Explain>
                 </ExplainBox>
                 <MoveBox>
-                    <Select>
-                        <option>최신순</option>
-                        <option>동의량순</option>
-                    </Select>
                     <Button type="button" onClick={moveWriteTraffic}>제보하기</Button>
                 </MoveBox>
                 <ListBox>
                     {items.map((item, index) => (
-                        <TrafficList type1={item.kind.description} type2={item.transportation.type} type3={item.transportation.station} content={item.content} time={item.createdTime} good={item.likeInfo.likeCount} bad={item.likeInfo.hateCount}/>
+                        <TrafficList
+                            type1={item.kind.description}
+                            type2={item.transportation.type}
+                            type3={item.transportation.station}
+                            content={item.content}
+                            time={item.createdTime}
+                            good={item.likeInfo.likeCount}
+                            bad={item.likeInfo.hateCount}
+                            liked={item.likeInfo.islLiked}
+                            hated={item.likeInfo.isHated}
+                        />
                     ))}
                 </ListBox>
             </BodyBox>

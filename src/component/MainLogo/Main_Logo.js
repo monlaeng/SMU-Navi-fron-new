@@ -16,6 +16,20 @@ export default function Main_Logo(){
         navigate('/');
     }
 
+    function refreshToken(){
+        axios({
+            method: 'post',
+            url: 'https://www.smnavi.me/api/user/refresh',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+        }).then((res) => {
+            localStorage.setItem('token', res.data.data.token)
+            onLogout();
+        })
+    }
+
     const onLogout = (e) => {
         axios({
             url: 'https://www.smnavi.me/api/user/logout',
@@ -27,8 +41,16 @@ export default function Main_Logo(){
             alert('로그아웃 되었습니다.');
             localStorage.clear();
             window.location.reload();
+            console.log(res.statusCode)
         }).catch((error) => {
-            alert('로그아웃할 수 없습니다.');
+            if(error.response.status === 401){
+                refreshToken();
+                alert('로그아웃 되었습니다.');
+                localStorage.clear();
+                window.location.reload();
+            }else{
+                alert('로그아웃할 수 없습니다.');
+            }
         })
     }
 

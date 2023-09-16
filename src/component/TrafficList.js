@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Speaker from '../img/loudSpeacker.svg';
 import heart from '../img/heartTrue.png';
+import heartTrue from '../img/heart.png';
 import notHeart from '../img/heartFalse.png';
+import notHeartTrue from '../img/heartBreak.png';
 
 const List = styled.div`
   display: flex;
@@ -13,6 +15,7 @@ const List = styled.div`
   border-radius: 10px;
   margin: 10px 0;
   position: relative;
+  cursor: pointer;
 `
 
 // const ListImgWrap = styled.div`
@@ -88,9 +91,10 @@ const Time = styled.div`
   font-size: 15px;
 `
 
-export default function TrafficList({ type1, type2, type3, content, time, good, bad }){
+export default function TrafficList({ type1, type2, type3, content, time, good, bad, liked, hated, onClick }){
+    // console.log(liked, hated)
     return(
-        <List>
+        <List onClick={onClick}>
             <ListImg src={Speaker} />
             <TrafficLists>
                 <ListType>
@@ -103,11 +107,11 @@ export default function TrafficList({ type1, type2, type3, content, time, good, 
             <TrafficInfo>
                 <NumberWrap>
                     <GoodWrap>
-                        <GoodImg src={heart} />
+                        { liked == true ? <GoodImg src={heartTrue} /> : <GoodImg src={heart} />}
                         <GoodNumber>{ good }</GoodNumber>
                     </GoodWrap>
                     <BadWrap>
-                        <BadImg src={notHeart} />
+                        { hated  == true ? <BadImg src={notHeartTrue} /> : <BadImg src={notHeart} />}
                         <GoodNumber>{ bad }</GoodNumber>
                     </BadWrap>
                 </NumberWrap>

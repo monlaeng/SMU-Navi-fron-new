@@ -86,7 +86,19 @@ function ReportTraffic(){
                         {content != ''
                             ? content.map((content, index) => (
                                 <div className="traffic_tab_box_wrap">
-                                    <TrafficTab slide={slidePx}  type1={content.kind.description} type2={content.transportation.type} type3={content.transportation.station} num={index} time={content.createdTime} content={content.content} heartLike={content.likeInfo.likeCount} heartHate={content.likeInfo.hateCount}/>
+                                    <TrafficTab slide={slidePx}
+                                                type1={content.kind.description}
+                                                type2={content.transportation.type}
+                                                type3={content.transportation.station}
+                                                num={index}
+                                                time={content.createdTime}
+                                                content={content.content}
+                                                heartLike={content.likeInfo.likeCount}
+                                                heartHate={content.likeInfo.hateCount}
+                                                liked={content.likeInfo.islLiked}
+                                                hated={content.likeInfo.isHated}
+                                                onClick={() => onMoveTrafficDetail(content.id)}
+                                    />
                                 </div>
                             ))
                             : <div className="traffic_tab_box">등록된 글이 없습니다</div>}
