@@ -103,7 +103,7 @@ export default function Mobile_TipPage(){
         <Container>
             <MainLogo/>
             <TitleBox>
-                <Title>교통 제보하기</Title>
+                <Title>꿀팁 확인하기</Title>
             </TitleBox>
             <BodyBox>
                 <ExplainBox>

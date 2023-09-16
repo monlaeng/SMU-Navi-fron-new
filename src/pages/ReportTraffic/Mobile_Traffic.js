@@ -90,7 +90,7 @@ const ModalCard = styled.div`
     justify-content: center;
     background-color: white;
     padding: 50px 30px;
-    width: 60%;
+    width: 75%;
     border-radius: 15px;
     position: relative;
 `
@@ -461,14 +461,14 @@ export default function Mobile_Traffic(){
                                 </ModalHeartWrap>
                                 { contents.isMine == true ?
                                     <ModalButtonWrap>
-                                        <ModalButton onClick={editMine}>수정하기</ModalButton>
-                                        <ModalButton onClick={deletePost}>삭제하기</ModalButton>
+                                        <ModalButton onClick={editMine}>수정</ModalButton>
+                                        <ModalButton onClick={deletePost}>삭제</ModalButton>
                                     </ModalButtonWrap>
                                     : <></> }
                                 { contents.isAnonymous == true ?
                                     <ModalButtonWrap>
-                                        <ModalButton onClick={editModalOpen}>수정하기</ModalButton>
-                                        <ModalButton onClick={deleteAnonyModalOpen}>삭제하기</ModalButton>
+                                        <ModalButton onClick={editModalOpen}>수정</ModalButton>
+                                        <ModalButton onClick={deleteAnonyModalOpen}>삭제</ModalButton>
                                     </ModalButtonWrap>
                                     : <></> }
                             </ModalBottomWrap>
