@@ -172,6 +172,7 @@ const ModalPwWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 `
 
 const ModalDeletePwWrap = styled.div`
@@ -347,7 +348,7 @@ export default function Mobile_Traffic(){
             data: {}
         }).then((res) => {
             alert('제보글이 삭제되었습니다.');
-            // navigate(-1);
+            window.location.reload();
         }).catch((error) => {
             alert(error.response.data.message);
         })
@@ -362,6 +363,7 @@ export default function Mobile_Traffic(){
     }
 
     function deleteAnonyModalOpen(){
+        setEditMineModal(false);
         setDeleteAnonyModal(true);
     }
 
@@ -380,7 +382,7 @@ export default function Mobile_Traffic(){
             }
         }).then((res) => {
             alert('제보글이 삭제되었습니다.');
-            // navigate(-1);
+            window.location.reload();
         }).catch((error) => {
             alert(error.response.data.message);
         })
@@ -481,7 +483,7 @@ export default function Mobile_Traffic(){
                     <Modal>
                         <ModalCard>
                             <ModalCloseBtn onClick={editModalClose}>x</ModalCloseBtn>
-                            <h3>수정하기</h3>
+                            <h3>📝 수정하기</h3>
                             <ModalContentInput
                                 defaultValue={contents.content}
                                 onChange={(e) => setEditContent(e.target.value)}
@@ -501,7 +503,7 @@ export default function Mobile_Traffic(){
                     <Modal>
                         <ModalCard>
                             <ModalCloseBtn onClick={editMineModalClose}>x</ModalCloseBtn>
-                            <h3>수정하기</h3>
+                            <h3>📝 수정하기</h3>
                             <ModalContentInput
                                 defaultValue={contents.content}
                                 onChange={(e) => setEditContent(e.target.value)}
@@ -516,7 +518,7 @@ export default function Mobile_Traffic(){
                     <Modal>
                         <ModalCard>
                             <ModalCloseBtn onClick={deleteAnonyModalClose}>x</ModalCloseBtn>
-                            <h3>삭제하기</h3>
+                            <h3>❎ 삭제하기</h3>
                             <ModalDeletePwWrap>
                                 <ModalPasswordInput type="password"
                                                     placeholder="비밀번호를 입력하세요"
