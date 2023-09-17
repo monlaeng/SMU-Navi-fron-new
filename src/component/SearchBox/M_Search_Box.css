@@ -1,6 +1,6 @@
 #m_wrapper {
     width: 350px;
-    height: auto;
+    height: 100%;
     display: inline-block;
     text-align: center;
     align-items: center;
@@ -19,7 +19,7 @@
     z-index: 7;
     float: left;
     background-color: white;
-    left: 5vw;
+    left: 7vw;
     top: 0.5vh;
 }
 
@@ -65,20 +65,43 @@
     display: none;
 }
 
-#floating{
-    width: 45vw;
+.container {
+    width: 330px;
+    height: 300px;
+    background-color: white;
+    z-index: 5;
+    position: absolute;
+    border-style: solid;
+    border-color: #0B097A;
+    border-width: 1px;
+    display: inline-block;
+    left: 5vw;
+    top: 10vh;
+    overflow: hidden;
+    -ms-overflow-style: none;
+    font-size: small;
+}
+.close {
     display: inline-block;
     position: relative;
-    top: 2.7vh;
-    left: 9vw;
+    background-color: #0B097A;
+    z-index: 7;
+}
+
+#m_floating{
+    width: 45vw;
+    height: 30px;
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    left: 12vw;
     float: left;
     z-index: 6;
 }
-#floating>img{
+#m_floating>img{
     margin-right: 10px;
     box-shadow: 0px 2px 0px 0px #8a8585;
     border-radius: 20px;
-
 }
 
 #M_map{
@@ -103,6 +126,23 @@
     display: inline-block;
     position: relative;
     z-index: 5;
+}
+#Search_box_title{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+}
+
+#m_Search_box_title p{
+    text-align: center;
+    padding: 10px;
+    margin: 30px auto 0 auto;
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    transform: translate(0, -5vh);
 }
 
 .search-wrapper2.on {
@@ -147,13 +187,13 @@
     float: right;
     transform: translate(-35px, 20px);
 }
-.wrap {position: absolute;left: 0;bottom: 40px;width: 200px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;}
-.wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 200px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap {position: absolute;left: 0;bottom: 40px;width: 250px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; }
+.wrap * {padding: 0;margin: 0; z-index: 20;}
+.wrap .info {width: 250px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; z-index: 20;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 6px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 16px; font-weight: bold;}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:focus {cursor: pointer;}
-.info .body {position: relative;overflow: hidden; width: 100%}
+.info .body {position: relative;overflow: hidden; width: 100%; z-index: 20;}
 .info .desc {position: relative;margin: 13px 0 0 0;height: 75px;}
 .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; font-size: 14px}
