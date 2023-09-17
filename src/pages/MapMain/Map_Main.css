@@ -1,7 +1,7 @@
 #wrapper{
     background-color: white;
     width: 90%;
-    height: 65vh;
+    height: 70vh;
     display: inline-block;
     text-align: center;
     margin-top: 0.1%;
@@ -16,21 +16,16 @@
 }
 
 .Main_wrap{
-
+    align-content: center;
+    align-items: center;
     text-align: center;
-
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
 }
 
 
-#map{
-    width: 75vw;
-    height: 95%;
-    left: 2vw;
-    bottom: 3vh;
-    z-index: 1;
-    border-radius: 20px;
-    margin-top: 5vh;
-}
 
 #m_traffic{
     display: inline-block;

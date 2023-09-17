@@ -18,9 +18,6 @@ const Mobile_Map_Main = ({linePath}) => {
         <div className={"Main_wrap"}>
             <Wrapper>
                 <Main_Logo />
-                {/*<div id={'m_traffic'}>*/}
-                {/*    <TrafficInfo  />*/}
-                {/*</div>*/}
                 <M_Search_Box />
             </Wrapper>
         </div>

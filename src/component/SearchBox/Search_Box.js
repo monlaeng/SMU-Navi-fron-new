@@ -4,20 +4,49 @@ import './Search_Box.css';
 import axios, {head} from 'axios';
 import styled from 'styled-components';
 import smuMarker from '../../img/smuMarker.png';
-
+import busLocation_off from '../../img/busLocation-off.png'
+import busLocation_on from '../../img/busLocation-on.png';
+import route_off from '../../img/route-off.png';
+import route_on from '../../img/route-on.png';
+import cctv_off from '../../img/cctv_off.png';
+import cctv_on from '../../img/cctv_on.png';
+import busMarkerImg from '../../img/busMarker.png';
+import issueBusMarker from '../../img/issue_bus.png';
+import busStationMarker from '../../img/busStationPoint.png';
+import issueStationMarker from '../../img/issueStation.png';
+import cctvMarkerImg from '../../img/cctvMarker.png';
 
 const { kakao } = window;
 var polylines = [];
+var routePolylines = [];
 var verColor = 'black';
 var transitImg = '';
 
+var selectedMarker = null;
+// 마커를 클릭했을 때 해당 정류장의 상세정보를 보여줄 커스텀오버레이
+var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),
+    contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
+    markers = []; // 마커를 담을 배열입니다
+placeOverlay.setContent(contentNode);
+contentNode.className = 'placeinfo_wrap';
 
 var pos1 = new kakao.maps.LatLng(37.6744854, 127.0818506);  //ne
 var pos2 = new kakao.maps.LatLng(37.5211303, 126.7799154);  //sw
 var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 
-// var selectTitle = "";   //선택한 위치 title 저장
+let cctvPoint = [
+    {
+        title : '광화문',
+        latlng: new kakao.maps.LatLng(37.534773511990586, 126.93817624081332),
+        src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.86850223291543&minY=37.532683171998684&maxX=127.08840516954024&maxY=37.618116676194724',
+    },
+    {
+        title : '시청',
+        latlng: new kakao.maps.LatLng(37.5726445129094, 126.98601773351413),
+        src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010169&cctvname=%25EC%258B%259C%25EC%25B2%25AD&kind=Seoul&cctvip=null&cctvch=51&id=60&cctvpasswd=null&cctvport=null&minX=126.86761300167508&minY=37.52331181092342&maxX=127.08748873586144&maxY=37.60874703165121',
+    }
 
+];
 
 function Search_Box () {
     const baseUrl = "https://www.smnavi.me/api/route/";
@@ -28,7 +57,6 @@ function Search_Box () {
     const [transferName, setTransferName] = useState([]);
     const [wayTime, setWayTime]= useState([]);
     const [map, setMap] = useState();
-    let [position,setposition] = useState([]);
 
     let [mysCnt, setMySCnt] = useState(5);
 
@@ -39,11 +67,37 @@ function Search_Box () {
     const imageSize = new kakao.maps.Size(20, 25);
     const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    const busMarkerImage = new kakao.maps.MarkerImage(busMarkerImg, imageSize);
+    const issueBusImage = new kakao.maps.MarkerImage(issueBusMarker, imageSize);
 
     const smuImageSize = new kakao.maps.Size(30, 35);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
     //~영원히 안변할 변수
+
+    const stationImageSize = new kakao.maps.Size(15, 15);
+    const stationImage = new kakao.maps.MarkerImage(busStationMarker, stationImageSize);
+    const issueStationImage = new kakao.maps.MarkerImage(issueStationMarker, stationImageSize);
+    const cctvImage = new kakao.maps.MarkerImage(cctvMarkerImg, imageSize);
+
+    //플로팅 아이콘
+    const [busLocation, setBusLocation] = useState(false);
+    const [cctv, setCctv] = useState(false);
+    const [route, setRoute] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const [busPosition, setBusPosition] = useState([]);
+    const [busMarker, setBusMarker] = useState([]);
+    const [position,setposition] = useState([]);
+    const [basicMarker, setBasicMarker] = useState([]);
+    const [busStation, setBusStation] = useState([]);
+    const [stationMarker, setStationMarker] = useState([]);
+    const [cctvMarker, setCctvMarker] = useState([]);
+
+    const [busRoute, setBusRoute] = useState([]);
+    const [routePoly, setRoutePoly] = useState([]);
+
+    const [src, setSrc] = useState([]);
 
     const [showInfo, setShowInfo] = useState([false, false, false, false, false]);
 
@@ -81,6 +135,30 @@ function Search_Box () {
     useEffect(  () => {
         async function fetchData() {
             await getRoute();
+            getBusStation();
+            //7016 노선 그리기
+            axios.get("https://www.smnavi.me/api/bus-info/route/7016")
+                .then((response) => {
+                    let newBusRoute = [];
+                    newBusRoute = response.data.data;
+                    newBusRoute.map((p, idx) => {
+                        var poly = new kakao.maps.LatLng(p.gpsY, p.gpsX);
+                        routePoly.push(poly);
+                    })
+                    routePolylines = new kakao.maps.Polyline({
+                        map : map,
+                        path :[routePoly],
+                        strokeColor: '#59BE0A',
+                        strokeStyle: 'solid',
+                        strokeWeight: 4,
+                    })
+
+                    routePolylines.setMap(map);
+                    // setBusRoute(newBusRoute);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
 
             const mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
@@ -111,37 +189,25 @@ function Search_Box () {
                 }
             };
 
-            kakao.maps.event.addListener( map, 'drag', constrainBounds);
-            kakao.maps.event.addListener( map, 'zoom_changed', constrainBounds);
+            getBusLocation();
+            setBusLocation(true);
             position.map((p, idx) => {
-
                 var marker = new kakao.maps.Marker({
                     map: map,
                     position: p.latlng,
                     title: p.title,
                     image: markerImage,
-                    clickable: true
+                    clickable: true,
+                    zIndex : 10,
                 });
-                marker.setMap(map);
-                // setTransferName(null);
-
-                var smuMarker = new kakao.maps.Marker({
-                    map: map,
-                    position : new kakao.maps.LatLng(37.6026, 126.9553),
-                    title: '상명대학교',
-                    image: smuMarkerImage
-                });
-                smuMarker.setMap(map);
-
+                basicMarker.push(marker);
                 kakao.maps.event.addListener(marker, 'click', async function Click ()  {
-                    // selectTitle = p.title;
-                    //buttonColor(idx);
+
                     resetInfoState();
                     getRemove();
                     await axios
                         .get(baseUrl + p.Id)
                         .then((response) => {
-                            console.log(response)
                             let newWays = [];
                             let newTransferName = [];
                             let newWayTime = [];
@@ -217,7 +283,20 @@ function Search_Box () {
                             console.log(error);
                         })
                 });
+
+            kakao.maps.event.addListener( map, 'drag', constrainBounds);
+            kakao.maps.event.addListener( map, 'zoom_changed', constrainBounds);
+            var smuMarker = new kakao.maps.Marker({
+                map: map,
+                position : new kakao.maps.LatLng(37.6026, 126.9553),
+                title: '상명대학교',
+                image: smuMarkerImage
             });
+            smuMarker.setMap(map);
+
+
+            })
+
         }
         fetchData();
 
@@ -399,7 +478,7 @@ function Search_Box () {
             else if(busType === '지선')
                 transitImg = 'busji';
             else if(busType === '마을버스')
-                transitImg = 'busma';
+                transitImg = 'busji';
         }
         else if(type === 'SUBWAY'){
             if(lineName === '1')
@@ -426,7 +505,7 @@ function Search_Box () {
             else if(busType === '지선')
                 verColor ='#59BE0A';
             else if(busType === '마을버스')
-                verColor = '#E43506';
+                verColor = '#59BE0A';
         }
         else if(type === 'SUBWAY'){
             if(lineName === '1')
@@ -445,16 +524,11 @@ function Search_Box () {
     function progress(index) {
         var subPathCnt = ways[index].subPathCnt;
         var time = ways[index].time;
-        if (subPathCnt >= 5){
-            var extra = 100%subPathCnt+1;
-        }
-        else
-            {extra = 0;}
         return(
             <div id = {"progress"}>
                 {transferName[index].map((obj, index3) => (
                     <span id={"wayProgress"} key={index3}>
-                        <span id= {'progressDetail'} style={{width: (100/subPathCnt + extra) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                        <span id= {'progressDetail'} style={{width: ((obj.sectionTime+10)/(time+10*subPathCnt)*100) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
                     </span>
                 ))}
             </div>
@@ -586,15 +660,251 @@ function Search_Box () {
         setShowInfo(newShowInfo);
     }
 
+    function getBusStation() {
+        axios.get("https://www.smnavi.me/api/bus-station-info")
+            .then((response) => {
+                let newBusStation = []
+                newBusStation = response.data.data;
+                setBusStation(newBusStation);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    function getBusLocation() {
+        axios.get("https://www.smnavi.me/api/bus-position")
+            .then((response) => {
+                let newBusPosition = [];
+                newBusPosition = response.data.data;
+                setBusPosition(newBusPosition);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+
+
+    function drawBusRoute(){
+        busRoute.map((p, idx) => {
+
+        })
+    }
+
+    useEffect(() => {
+        createBusMarkers();
+    }, [busPosition])
+
+    useEffect(() => {
+        createStationMarkers();
+    }, [busStation])
+
+    function createMarker(position, image) {
+        var marker = new kakao.maps.Marker({
+            position: position,
+            image: image
+        });
+
+        return marker;
+    }
+
+    function setBasicMarkers(map) {
+        for (var i = 0; i < basicMarker.length; i++) {
+            basicMarker[i].setMap(map);
+        }
+    }
+
+    function createStationMarkers() {
+        busStation.map((p, idx) => {
+            if(p.hasIssue === true) {
+                var marker = createMarker(new kakao.maps.LatLng(p.gpsY, p.gpsX), issueStationImage);
+            }
+            else {
+                marker = createMarker(new kakao.maps.LatLng(p.gpsY, p.gpsX), stationImage);
+            }
+            stationMarker.push(marker);
+
+            kakao.maps.event.addListener(marker, 'click', function () {
+                displayPlaceInfo(p);
+            });
+        });
+        setStationMarkers(map);
+    }
+    const showModal = () => {
+        setModalOpen(!modalOpen);
+    };
+    function createCctvMarkers() {
+        cctvPoint.map((p, idx) => {
+            var marker = createMarker(p.latlng, cctvImage);
+            cctvMarker.push(marker);
+            kakao.maps.event.addListener(marker, 'click', function() {
+                setModalOpen(modalOpen => true);
+                // selectedSrc = p.src;
+                setSrc(p.src);
+            })
+        });
+        setCctvMarkers(map);
+    }
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
+    function StationInfo() {
+        return(
+            <div className={"container"}>
+                <button className={'close'} onClick={closeModal}>
+                    X
+                </button>
+                <iframe id={"m-myIframe"}
+                        src={src}
+                        height="330" width="330" frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;allow-same-origin "
+                        allowFullScreen="{true}">
+
+                </iframe>
+
+            </div>
+        )
+
+    }
+
+
+
+    function setCctvMarkers(map) {
+        let newCctvMarker = [];
+        for (var i = 0; i < cctvMarker.length; i++) {
+            cctvMarker[i].setMap(map);
+        }
+        if(map === null) {
+            setCctvMarker(newCctvMarker);
+        }
+    }
+
+    function displayPlaceInfo(place){
+        var content = document.createElement('div');
+        content.className = 'wrap';
+        var info = document.createElement('div');
+        info.className = 'info';
+        var title = document.createElement('div');
+        title.className = 'title';
+        title.appendChild(document.createTextNode(place.stationName));
+        var close = document.createElement('div');
+        close.className = 'close';
+        title.appendChild(close);
+        var body = document.createElement('div');
+        body.className = 'body';
+        var desc = document.createElement('div');
+        desc.className = 'desc';
+        var ellipsis = document.createElement('div');
+        var br = document.createElement('br');
+        ellipsis.className = 'ellipsis';
+
+        var firstMessage = document.createElement('span');
+        firstMessage.appendChild(document.createTextNode(place.firstArriveMessage));
+        var secondMessage = document.createElement('span');
+        secondMessage.appendChild(document.createTextNode(place.secondArriveMessage));
+
+
+        var largeInterval = document.createElement('span');
+        largeInterval.style.color = 'red';
+        largeInterval.appendChild(document.createTextNode(' 긴 배차간격'));
+        var largeInterval2 = document.createElement('span');
+        largeInterval2.style.color = 'red';
+        largeInterval2.appendChild(document.createTextNode(' 긴 배차간격'));
+
+        if(place.isNonstop === true){
+            ellipsis.appendChild(document.createTextNode('현 정거장 우회중'));
+        }
+        else{
+            if(place.isLargeInterval === true){
+                firstMessage.appendChild(largeInterval);
+                ellipsis.appendChild(firstMessage);
+                ellipsis.appendChild(br);
+
+                secondMessage.append(largeInterval2);
+                ellipsis.appendChild(secondMessage);
+
+            } else {
+                ellipsis.appendChild(document.createTextNode(place.firstArriveMessage));
+                ellipsis.appendChild(br);
+                ellipsis.appendChild(document.createTextNode(place.secondArriveMessage));
+            }
+        }
+        desc.appendChild(ellipsis);
+        body.appendChild(desc);
+        info.appendChild(title);
+        info.appendChild(body);
+        content.appendChild(info);
+        content.appendChild(info);
+
+        close.onclick = function() { placeOverlay.setMap(null); };
+
+        placeOverlay.setContent(content);
+        placeOverlay.setPosition(new kakao.maps.LatLng(place.gpsY, place.gpsX));
+        placeOverlay.setMap(map);
+    }
+    function closeOverlay() {
+        placeOverlay.setMap(null);
+    }
+
+    function setStationMarkers(map) {
+        let newStationMarker = [];
+        for (var i = 0; i < stationMarker.length; i++) {
+            stationMarker[i].setMap(map);
+        }
+        if(map === null) {
+            setStationMarker(newStationMarker);
+        }
+    }
+
+
+
+    function createBusMarkers() {
+        for (var i = 0; i < busPosition.length; i++) {
+            if(busPosition[i].hasIssue === true) {
+                var marker = createMarker(new kakao.maps.LatLng(busPosition[i].gpsY, busPosition[i].gpsX), issueBusImage);
+            }
+            else {
+                marker = createMarker(new kakao.maps.LatLng(busPosition[i].gpsY, busPosition[i].gpsX),busMarkerImage);
+            }
+            busMarker.push(marker);
+        }
+        setBusMarkers(map);
+    }
+
+    // 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
+    function setBusMarkers(map) {
+        let newBusMarker = [];
+        for (var i = 0; i < busMarker.length; i++) {
+            busMarker[i].setMap(map);
+        }
+        if(map === null) {
+            setBusMarker(newBusMarker);
+        }
+    }
+
+    function setRoutePolylines(map) {
+        routePolylines.setMap(map);
+    }
 
     return(
         <>
             <div id={'main-wrapper'}>
-                <div style={{height: '0px'}}>
+                <div id='map' >
+
+                    <div id={'floating'}>
+                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
+                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null);}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
+                        {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); getBusStation(); setRoutePolylines(map);  }} src={busLocation_off}/>}
+                    </div>
                     <div className={"search-wrapper"}>
                         <div id={"Search_box_title"}><p id={"Search_titile"}>상세경로</p></div>
-                        {Info()}
-                    </div>
+                            {Info()}
+                        </div>
+                        <div>
+                            {modalOpen && <StationInfo />}
+                        </div>
                     <div id={"button_list"} >
                         {position.map((obj, index) => (
                             <div key={index}>
@@ -603,6 +913,7 @@ function Search_Box () {
                         ))}
                     </div>
                 </div>
+
             </div>
         </>
        

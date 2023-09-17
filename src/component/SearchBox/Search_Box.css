@@ -1,6 +1,19 @@
 #main-wrapper{
     text-align: left;
+    height: 100%;
 }
+
+#map{
+    width: 85vw;
+    height: 65vh;
+    left: 2vw;
+    bottom: 3vh;
+    z-index: 1;
+    border-radius: 20px;
+    margin-top: 5vh;
+    display: inline-block;
+}
+
 .search-wrapper{
     height: 54vh;
     width: 20vw;
@@ -11,7 +24,7 @@
     border: 1px solid #879B6D;
     position: relative;
     left: 3vw;
-    top: -74vh;
+    top: -10vh;
     border-radius: 10px;
     text-align: left;
     z-index: 5;
@@ -22,7 +35,7 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-
+    width: 100%;
 }
 
 
@@ -34,7 +47,7 @@
     color: black;
     font-size: 20px;
     font-weight: bolder;
-    transform: translate(0, -60%);
+    transform: translate(0, -2vh);
 }
 
 #ways-list-wrapper{
@@ -224,3 +237,55 @@
     color: #da3c0d;
     font-size: 12px;
 }
+
+#floating{
+    width: 20vw;
+    display: inline-block;
+    position: relative;
+    z-index: 6;
+    left: 10vw;
+    top: 3vh;
+    margin-left: 50vw;
+}
+#floating>img{
+    margin-right: 10px;
+    box-shadow: 0px 2px 0px 0px #8a8585;
+    border-radius: 20px;
+    float: right;
+}
+
+.container {
+    width: 330px;
+    height: 300px;
+    background-color: white;
+    z-index: 5;
+    position: absolute;
+    border-style: solid;
+    border-color: #0B097A;
+    border-width: 1px;
+    display: inline-block;
+    margin-left: 30vw;
+    top: 10vh;
+    overflow: hidden;
+    -ms-overflow-style: none;
+    font-size: small;
+}
+.close {
+    display: inline-block;
+    position: relative;
+    background-color: #0B097A;
+    z-index: 7;
+    width: 30px;
+}
+
+
+.wrap {position: absolute;left: 0;bottom: 40px;width: 250px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; }
+.wrap * {padding: 0;margin: 0; z-index: 20;}
+.wrap .info {width: 250px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; z-index: 20;}
+.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+.info .title {padding: 6px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 16px; font-weight: bold;}
+.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.info .close:focus {cursor: pointer;}
+.info .body {position: relative;overflow: hidden; width: 100%; z-index: 20;}
+.info .desc {position: relative;margin: 13px 0 0 0;height: 75px;}
+.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; font-size: 14px}
