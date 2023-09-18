@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import MainLogo from '../../component/MainLogo/Mobile_Main_Logo.js'
 import TrafficList from '../../component/TrafficList';
+import Pagination from '../../component/Pagination';
 import axios from 'axios';
 import heartLike from '../../img/heartTrue.png';
 import heartHate from '../../img/heartFalse.png';
@@ -218,19 +219,24 @@ export default function Mobile_Traffic(){
     const [editPw, setEditPw] = useState('');
     const [editContent, setEditContent] = useState('');
 
+    const [posts, setPosts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(7);
+
     const [editMineModal, setEditMineModal] = useState(false);
     const [deleteAnonyModal, setDeleteAnonyModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=>{
         axios({
-            url: host + '/api/info?isMine=0',
+            url: host + '/api/info?page=0&size=7&isMine=0',
             method: 'GET',
             headers:{
                 'Authorization': 'Bearer ' + token
             }
         }).then(function(response){
             setItems(response.data.data.itemList);
+            setPosts(response.data.data);
         })
     }, [])
 
@@ -354,6 +360,17 @@ export default function Mobile_Traffic(){
         })
     }
 
+    function pagination(num) {
+        axios({
+            url: host + `/api/info?page=${num - 1}&size=${postsPerPage}&isMine=0`,
+            method: 'GET',
+        }).then(function (response) {
+            setItems(response.data.data.itemList);
+            setPosts(response.data.data);
+            setCurrentPage(num); // 페이지 변경
+        });
+    }
+
     function editMine(){
         setEditMineModal(true);
     }
@@ -420,6 +437,14 @@ export default function Mobile_Traffic(){
                         />
                     ))}
                 </ListBox>
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts.totalCount}
+                    totalPages={posts.totalPage}
+                    paginate={pagination}
+                    items={items}
+                    currentPage={1}
+                />
             </BodyBox>
             {detailModal == true ?
                     <Modal>

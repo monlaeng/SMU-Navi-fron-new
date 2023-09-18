@@ -90,8 +90,9 @@ function TrafficList(){
                     postsPerPage={postsPerPage}
                     totalPosts={posts.totalCount}
                     totalPages={posts.totalPage}
-                    paginate={pagination} // pagination 함수 전달
+                    paginate={pagination}
                     items={items}
+                    currentPage={1}
                 />
             </div>
         </div>

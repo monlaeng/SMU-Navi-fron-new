@@ -31,7 +31,7 @@ export default function Main_Logo(){
     }
 
     useEffect(() => {
-        console.log(new Date().getTime() + 30 * 60 * 1000);
+        // console.log(new Date().getTime() + 30 * 60 * 1000);
         // if (new Date().getTime() + 30 * 60 * 1000 >= expiredIn) {
         //     리프레쉬
         // }
@@ -48,7 +48,7 @@ export default function Main_Logo(){
             alert('로그아웃 되었습니다.');
             localStorage.clear();
             window.location.reload();
-            console.log(res.statusCode)
+            // console.log(res.statusCode)
         }).catch((error) => {
             if(error.response.status === 401){
                 refreshToken();
