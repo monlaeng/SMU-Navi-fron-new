@@ -77,15 +77,19 @@
 }
 
 #button_list{
-    position: relative;
+    position: absolute;
     text-align: right;
-    left: 78vw;
-    top: -130vh;
+    left: 75vw;
+    top: 10vh;
     width: 8vw;
-    height: 60vh;
+    height: 50vh;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-right: 1vw;
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding-top: 1vh;
 }
 
 #button_list button{
@@ -243,8 +247,8 @@
     display: inline-block;
     position: relative;
     z-index: 6;
-    left: 10vw;
-    top: 3vh;
+    right: -13vw;
+    top: 4vh;
     margin-left: 50vw;
 }
 #floating>img{
@@ -258,7 +262,7 @@
     width: 330px;
     height: 300px;
     background-color: white;
-    z-index: 5;
+    z-index: 9;
     position: absolute;
     border-style: solid;
     border-color: #0B097A;
@@ -272,10 +276,11 @@
 }
 .close {
     display: inline-block;
-    position: relative;
-    background-color: #0B097A;
-    z-index: 7;
-    width: 30px;
+    position: absolute;
+    background-color: #31333e;
+    z-index: 12;
+    right: -82px;
+    top: 6px;
 }
 
 

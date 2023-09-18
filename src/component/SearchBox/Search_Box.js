@@ -37,12 +37,12 @@ var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 let cctvPoint = [
     {
         title : '광화문',
-        latlng: new kakao.maps.LatLng(37.534773511990586, 126.93817624081332),
+        latlng: new kakao.maps.LatLng(37.5724321, 126.976902),
         src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.86850223291543&minY=37.532683171998684&maxX=127.08840516954024&maxY=37.618116676194724',
     },
     {
         title : '시청',
-        latlng: new kakao.maps.LatLng(37.5726445129094, 126.98601773351413),
+        latlng: new kakao.maps.LatLng(37.5657037, 126.9768616),
         src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010169&cctvname=%25EC%258B%259C%25EC%25B2%25AD&kind=Seoul&cctvip=null&cctvch=51&id=60&cctvpasswd=null&cctvport=null&minX=126.86761300167508&minY=37.52331181092342&maxX=127.08748873586144&maxY=37.60874703165121',
     }
 
@@ -133,9 +133,12 @@ function Search_Box () {
     }
 
     useEffect(  () => {
+
         async function fetchData() {
             await getRoute();
+            // getBusRoute();
             getBusStation();
+
             //7016 노선 그리기
             axios.get("https://www.smnavi.me/api/bus-info/route/7016")
                 .then((response) => {
@@ -160,35 +163,6 @@ function Search_Box () {
                     console.log(error);
                 })
 
-            const mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                mapOption = {
-                    center: new kakao.maps.LatLng(37.596826, 126.9586567),
-                    level: 8 // 지도의 확대 레벨
-
-                };
-
-            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-            const map = new kakao.maps.Map(mapContainer, mapOption);
-            map.setMaxLevel(8);
-            setMap(map);
-
-            var constrainBounds = function() {
-                var center = map.getCenter();
-
-                var clipLat, clipLng, sw, ne;
-
-                if (!bounds.contain(center)) {
-
-                    sw = bounds.getSouthWest();
-                    ne = bounds.getNorthEast();
-
-                    clipLat = Math.min(Math.max(sw.getLat(), center.getLat()), ne.getLat());
-                    clipLng = Math.min(Math.max(sw.getLng(), center.getLng()), ne.getLng());
-
-                    map.setCenter(new kakao.maps.LatLng(clipLat, clipLng));
-                }
-            };
-
             getBusLocation();
             setBusLocation(true);
             position.map((p, idx) => {
@@ -198,11 +172,11 @@ function Search_Box () {
                     title: p.title,
                     image: markerImage,
                     clickable: true,
-                    zIndex : 10,
+                    zIndex : 1,
                 });
                 basicMarker.push(marker);
                 kakao.maps.event.addListener(marker, 'click', async function Click ()  {
-
+                    // selectTitle = p.title;
                     resetInfoState();
                     getRemove();
                     await axios
@@ -283,6 +257,35 @@ function Search_Box () {
                             console.log(error);
                         })
                 });
+            })
+
+            const mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.596826, 126.9586567),
+                    level: 8 // 지도의 확대 레벨
+                };
+
+            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            const map = new kakao.maps.Map(mapContainer, mapOption);
+            map.setMaxLevel(8);
+            setMap(map);
+
+            var constrainBounds = function() {
+                var center = map.getCenter();
+
+                var clipLat, clipLng, sw, ne;
+
+                if (!bounds.contain(center)) {
+
+                    sw = bounds.getSouthWest();
+                    ne = bounds.getNorthEast();
+
+                    clipLat = Math.min(Math.max(sw.getLat(), center.getLat()), ne.getLat());
+                    clipLng = Math.min(Math.max(sw.getLng(), center.getLng()), ne.getLng());
+
+                    map.setCenter(new kakao.maps.LatLng(clipLat, clipLng));
+                }
+            };
 
             kakao.maps.event.addListener( map, 'drag', constrainBounds);
             kakao.maps.event.addListener( map, 'zoom_changed', constrainBounds);
@@ -293,15 +296,10 @@ function Search_Box () {
                 image: smuMarkerImage
             });
             smuMarker.setMap(map);
-
-
-            })
-
         }
         fetchData();
 
     }, []);
-
 
 
     async function getData(p) {
@@ -901,10 +899,10 @@ function Search_Box () {
                     <div className={"search-wrapper"}>
                         <div id={"Search_box_title"}><p id={"Search_titile"}>상세경로</p></div>
                             {Info()}
-                        </div>
-                        <div>
-                            {modalOpen && <StationInfo />}
-                        </div>
+                    </div>
+                    <div>
+                        {modalOpen && <StationInfo />}
+                    </div>
                     <div id={"button_list"} >
                         {position.map((obj, index) => (
                             <div key={index}>
@@ -912,8 +910,7 @@ function Search_Box () {
                             </div>
                         ))}
                     </div>
-                </div>
-
+                 </div>
             </div>
         </>
        
