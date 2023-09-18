@@ -38,12 +38,12 @@ var bounds = new kakao.maps.LatLngBounds(pos1, pos2);
 let cctvPoint = [
     {
         title : '광화문',
-        latlng: new kakao.maps.LatLng(37.534773511990586, 126.93817624081332),
+        latlng: new kakao.maps.LatLng(37.5724321, 126.976902),
         src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.86850223291543&minY=37.532683171998684&maxX=127.08840516954024&maxY=37.618116676194724',
     },
     {
         title : '시청',
-        latlng: new kakao.maps.LatLng(37.5726445129094, 126.98601773351413),
+        latlng: new kakao.maps.LatLng(37.5657037, 126.9768616),
         src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010169&cctvname=%25EC%258B%259C%25EC%25B2%25AD&kind=Seoul&cctvip=null&cctvch=51&id=60&cctvpasswd=null&cctvport=null&minX=126.86761300167508&minY=37.52331181092342&maxX=127.08748873586144&maxY=37.60874703165121',
     }
 
@@ -699,6 +699,18 @@ function M_Search_Box() {
         }
     }
 
+    useEffect(() => {
+        if ( view === false ){
+            //메뉴닫힘
+            document.getElementById('location_list').classList.remove('on');
+            document.getElementById('selectWrapper').classList.remove('on');
+
+        } else {
+            document.getElementById('location_list').classList.add('on');
+            document.getElementById('selectWrapper').classList.add('on');
+        }
+    }, [view])
+
     function getBusStation() {
         axios.get("https://www.smnavi.me/api/bus-station-info")
             .then((response) => {
@@ -793,8 +805,8 @@ function M_Search_Box() {
     };
     function StationInfo() {
         return(
-            <div className={"container"}>
-                <button className={'close'} onClick={closeModal}>
+            <div className={"m_container"}>
+                <button className={'m_close'} onClick={closeModal}>
                     X
                 </button>
                 <iframe id={"m-myIframe"}
@@ -936,15 +948,17 @@ function M_Search_Box() {
                 <div id='M_map' >
                     <div>
                     </div>
-                    <ul id={'location_list'} onClick={() => {setView(!view)}}>
-                        {view ? <img src={up}/> : <img src={down}/>}
-                        <p id={'placeholder'} >출발지를 선택해주세요.</p>
+                    <div id={'selectWrapper'}>
+                        <ul id={'location_list'} onClick={() => {setView(!view); }}>
+                            {view ? <img src={up}/> : <img src={down}/>}
+                            <p id={'placeholder'} >출발지를 선택해주세요</p>
+                        </ul>
                         {view && <DropDown />}
+                    </div>
 
-                    </ul>
                     <div id={'m_floating'}>
                         {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
-                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null);}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
+                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal()}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); getBusStation(); setRoutePolylines(map);  }} src={busLocation_off}/>}
                     </div>
                     <div>
