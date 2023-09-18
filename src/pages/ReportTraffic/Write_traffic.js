@@ -82,11 +82,11 @@ function Write_traffic() {
             },
         })
         .then((res) => {
-            alert('교통 제보 완료');
+            alert('작성된 글이 제보되었습니다.');
             navigate('/report_traffic');
         })
         .catch((error) => {
-            alert('엥?');
+            alert('작성하지 않은 내용이 있습니다.');
         });
 
     }

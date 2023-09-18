@@ -9,6 +9,7 @@ import heartLike from '../../img/heartTrue.png';
 import heartHate from '../../img/heartFalse.png';
 import heartLikeTrue from '../../img/heart.png';
 import heartHateTrue from '../../img/heartBreak.png';
+import medal from '../../img/medal.png';
 
 const Container = styled.div`
   width: 100%;
@@ -127,11 +128,30 @@ const ModalType2 = styled.div`
   margin-right: 10px;
 `
 
+const ModalInfoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #DBDBDB;
+`
+
+const Medal = styled.img`
+  width: 30px;
+  height: 30px;
+`
+
+const ModalDetailInfoWrap = styled.div`
+  margin-left: 10px;
+`
+
 const ModalName = styled.div`
   margin: 10px 0;
 `
 
 const ModalTime = styled.div`
+    padding-bottom: 10px;
+`
+
+const ModalTimeAnony = styled.div`
     padding-bottom: 10px;
     border-bottom: 1px solid #DBDBDB;
 `
@@ -461,8 +481,20 @@ export default function Mobile_Traffic(){
                                     <ModalType2>{contents.transportation.station}</ModalType2>
                                 )}
                             </ModalTypes>
-                            <ModalName>작성자 : { contents.nickname }</ModalName>
-                            <ModalTime>작성시간 : { contents.createdAt }</ModalTime>
+                            { contents && contents.isAnonymous == false ?
+                                <ModalInfoWrap>
+                                    <Medal src={medal} />
+                                    <ModalDetailInfoWrap>
+                                        <ModalName>작성자 : { contents.nickname }</ModalName>
+                                        <ModalTime>작성시간 : { contents.createdAt }</ModalTime>
+                                    </ModalDetailInfoWrap>
+                                 </ModalInfoWrap>
+                                :
+                                <>
+                                    <ModalName>작성자 : { contents.nickname }</ModalName>
+                                    <ModalTimeAnony>작성시간 : { contents.createdAt }</ModalTimeAnony>
+                                </>
+                            }
                             <ModalContent>{ contents.content }</ModalContent>
                             <ModalBottomWrap>
                                 <ModalHeartWrap>

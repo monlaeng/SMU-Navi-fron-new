@@ -7,6 +7,7 @@ import heartLike from '../../img/heartTrue.png';
 import heartHate from '../../img/heartFalse.png';
 import heartLikeTrue from '../../img/heart.png';
 import heartHateTrue from '../../img/heartBreak.png';
+import medal from '../../img/medal.png';
 import { useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -153,7 +154,12 @@ function Detail_traffic(){
                                 <div>{contents.transportation.station}</div>
                             )}
                         </div>
+                        <div>
+                            { contents && contents.isAnonymous == false ?
+                                <img src={medal} className="medal" /> : <></>
+                            }
                         <div className={"reportDetailTitle"}>
+                            </div>
                             <div>
                                 <p>작성자 : {contents.nickname}</p>
                                 <p>작성일 : {contents.createdAt}</p>
