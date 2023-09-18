@@ -16,7 +16,7 @@
 
 .search-wrapper{
     height: 54vh;
-    width: 20vw;
+    width: 21vw;
     margin-top: 110px;
     background-color: #ffffff;
     opacity: 0.9;
@@ -47,14 +47,14 @@
     color: black;
     font-size: 20px;
     font-weight: bolder;
-    transform: translate(0, -2vh);
+    transform: translate(0, -3vh);
 }
 
 #ways-list-wrapper{
     display: inline-block;
 }
 #ways-list{
-    transform: translate(0%, -3vw);
+    transform: translate(0%, -2vw);
     background-color: #ffffff;
     opacity: 0.9;
     width: 100%;
@@ -130,10 +130,21 @@
 }
 
 #time{
-    margin-left: 10%;
+    margin-left: 1vw;
     text-align: left;
     font-size: larger;
     font-weight: bold;
+    margin-bottom: 20px;
+
+}
+
+#arrow {
+    float: left;
+    height: 8vh;
+    margin-left: 2vw;
+    margin-top: -2vh;
+    display: inline-block;
+    position: relative;
 }
 
 #progress{
@@ -154,32 +165,94 @@
 
 #wayDetail{
     margin-bottom: -5vh;
+    text-align: left;
 }
 #takePoint{
-    font-size: 14px;
+    font-size: 10px;
     font-weight: bold;
-}
-#offPoint{
-    font-size: 14px;
-    font-weight: bold;
-    transform: translate(0, 0vh);
     margin-bottom: 5vh;
-
+    width: 100%;
+    margin-left: 3vw;
+    transform: translate(0, -0.5vh);
 }
+
+#offPoint{
+    font-size: 10px;
+    font-weight: bold;
+    transform: translate(0, 0vh) ;
+    margin-bottom: 5vh;
+}
+
+#detailMin {
+    font-size: xx-small;
+    transform: translate(3.5vw,-7vh);
+    text-align: right;
+    position: fixed;
+}
+
+#firstRoute{
+    border-radius: 10px;
+    color: white;
+    width: 45px;
+    height: 15px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+}
+
 #first{
-    transform: translate(0, -1vh);
+    transform: translate(0.5vw, -1vh);
+    font-size: 12px;
+}
+
+#first > span {
+    margin-right: 3vw;
+    margin-left: -2vw;
+}
+
+#firstOff {
+    font-size: 12px;
+   margin-left: 1.2vw;
 }
 #firstIcon{
     width: 18px;
     position: relative;
     z-index: 2;
-    transform: translate(-0.3vw, 0.3vh);
+    transform: translate(1vw, 0.5vh);
+}
+
+#finalIcon{
+    width: 18px;
+    position: absolute;
+    z-index: 2;
+    margin-left: -8.6vw;
+    transform: translate(0, -0.7vh);
+    display: inline-block;
+    float: left;
+}
+
+#finalPlace {
+    font-size: 12px;
+    margin-left: -7vw;
+    transform: translate(0vw, -0.5vh);
+    display: inline-block;
+    position: absolute;
+    float: left;
 }
 
 #firstInfo{
     border-radius: 15px;
     color: white;
     padding: 3px 6px 3px 6px;
+}
+
+#finish{
+    background-color:   #0B097A;
+    color: white;
+    border-radius: 10px;
+    width: 45px;
+    height: 15px;
+    display: inline-block;
 }
 
 
@@ -200,39 +273,38 @@
     border-radius: 10px;
     margin-right: -0.4vw;
 }
+
 #infoDetail{
     display: flex;
     transform: translate(0vw, 0.3vh);
     text-align: center;
     margin-left: 5%;
+    position: relative;
+    top: 2vh;
 }
 #verProgress{
-    width: 5px;
-    height: 8.5vh;
+    width: 10px;
     display: inline-block;
-    border-radius: 10px;
-    transform: translate(0.5vw, -0.2vh);
+    /*border-radius: 10px;*/
+    transform: translate(0.5vw, -8vh);
     z-index: 5;
-    margin-left: 25px;
+    position: relative;
+    float: top;
+    text-space: 20px;
+    margin-bottom: -0.5vh;
 }
+
 
 #detailIcon{
     width: 18px;
     position: relative;
     z-index: 2;
-    transform: translate(1.5vw, 2.5vh);
+    transform: translate(-4px, -1.8vh);
 }
+
 #typeDetail{
     transform:translate(2vw, 2.5vh);
-    font-size: 13px;
-}
-
-
-#detailMin {
-    font-size: xx-small;
-    transform: translate(0vw,0vh);
-    text-align: right;
-    position: fixed;
+    font-size: 10px;
 }
 
 #isTraffic {
