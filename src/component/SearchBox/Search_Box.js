@@ -746,7 +746,7 @@ function Search_Box () {
                 // setModalOpen(modalOpen => true);
                 // // selectedSrc = p.src;
                 // setSrc(p.src);
-                window.open(p.src, '_blank', 'width=500,height=300');
+                window.open(p.src, '_blank', 'width=350,height=300');
             })
         });
         setCctvMarkers(map);
