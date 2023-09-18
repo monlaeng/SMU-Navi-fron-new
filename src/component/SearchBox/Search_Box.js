@@ -15,6 +15,8 @@ import issueBusMarker from '../../img/issue_bus.png';
 import busStationMarker from '../../img/busStationPoint.png';
 import issueStationMarker from '../../img/issueStation.png';
 import cctvMarkerImg from '../../img/cctvMarker.png';
+import finalIcon from '../../img/finalIcon.png';
+import arrow from '../../img/arrow.png';
 
 const { kakao } = window;
 var polylines = [];
@@ -459,6 +461,8 @@ function Search_Box () {
             item = false
         )
         setShowInfo(resetShowInfo);
+        setBasicMarkers(map);
+        setRoute(true);
     }
 
     //progressBar component 따로 생성, {이용수단 type, 이용시간, 환승횟수, 도보시간} 전달
@@ -521,17 +525,22 @@ function Search_Box () {
     }
     function progress(index) {
         var subPathCnt = ways[index].subPathCnt;
+        if(subPathCnt >= 6)
+            var extra = 2;
+        else
+            extra = 0;
         var time = ways[index].time;
         return(
             <div id = {"progress"}>
                 {transferName[index].map((obj, index3) => (
                     <span id={"wayProgress"} key={index3}>
-                        <span id= {'progressDetail'} style={{width: ((obj.sectionTime+10)/(time+10*subPathCnt)*100) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
+                        <span id= {'progressDetail'} style={{width: ((obj.sectionTime+10+extra)/(time+10*subPathCnt)*100 ) + "%" , backgroundColor: colorSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName)}}><span><img  id={"icon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index3].transitType, ways[index].subPathList[index3].busType, ways[index].subPathList[index3].lineName )}.png`)} /></span><span id={"busdiv"}><p id={"min"}>{obj.sectionTime}분</p></span> </span>
                     </span>
                 ))}
             </div>
         )
     }
+
 
     function Info(){
         return(
@@ -540,10 +549,9 @@ function Search_Box () {
                     {wayTime.map((data, index) => (
                         <div key={index}>
                             <div onClick={e => handleOnClick(e, index)}>
-                                {bestWay(index)}
+                                {/*{bestWay(index)}*/}
                                 <p id={"time"}>{data}분</p>
                                 {isTraffic(index)}
-                                {progress(index)}
                                 {infoDetail(index)}
                                 {showInfoDetail(index)}
                                 <hr/>
@@ -571,41 +579,47 @@ function Search_Box () {
     }
     
     function subwayInfo(index){
-        if(transferName[index][0].transitType === 'SUBWAY')
+        if(transferName[index][1].transitType === 'SUBWAY')
             return(<span>호선</span>)
-        else if(transferName[index][0].transitType === 'WALK')
-            return(<span>도보</span>)
+        else if(transferName[index][1].transitType === 'WALK')
+            return(<span>{transferName[index][1].from}</span>)
     }
 
     function infoDetail(index) {
+        console.log(ways[index]);
+        var subPathCnt = ways[index].subPathCnt;
+        var time = ways[index].time;
+        if(subPathCnt >= 6)
+            var extra = 2;
+        else
+            extra = 0;
         if(showInfo[index] === false) {
             return (
                 <>
-                    <div id={'first'}><span><img id={"firstIcon"} src={require(`../../img/${ways[index].subPathList[0].transitType}.png`)} /></span><span id={'firstInfo'} style={{backgroundColor: colorSelector(ways[index].subPathList[0].transitType,ways[index].subPathList[0].busType,ways[index].subPathList[0].lineName)}}>{transferName[index][0].lineName}{subwayInfo(index)}</span> </div>
-                    <div>하차 {transferName[index][0].to}</div>
+                    {progress(index)}
+                    <span><img id={'arrow'} src={arrow}/></span>
+                    <div id={'first'}><span><img id={"firstIcon"} src={require(`../../img/${ways[index].subPathList[1].transitType}.png`)} /></span><span id={'firstInfo'} style={{backgroundColor: colorSelector(ways[index].subPathList[1].transitType,ways[index].subPathList[1].busType,ways[index].subPathList[1].lineName)}}>{transferName[index][1].lineName}{subwayInfo(index)}</span><span>승차 {ways[index].subPathList[1].from}</span> </div>
+                    <div id={'firstOff'}>하차 {transferName[index][1].to}</div>
                 </>
             )
         }
         else{
             return (
-                <>
+                <div>
                     {transferName[index].map((obj, index2) => (
                         <div key={index2}>
                             <div id={"wayDetail"}>
-                                <p id={'takePoint'}>출발 {obj.from}</p>
+                                <p id={'takePoint'}> <span id={'firstRoute'} style={{backgroundColor: colorSelector(ways[index].subPathList[index2].transitType,ways[index].subPathList[index2].busType,ways[index].subPathList[index2].lineName)}}>{lineName(index, index2)}</span>{obj.from}</p>
+                                <h6 id={"detailMin"}>{obj.sectionTime}분</h6>
                                 <div id={"infoDetail"}>
-                                    <h6 id={"detailMin"}>{obj.sectionTime}분</h6>
-                                    <span id={'verProgress'} style={{backgroundColor: colorSelector(obj.transitType, obj.busType, obj.lineName)}}></span>
-                                    <span id={"icon_line"}><img  id={"detailIcon"} src={require(`../../img/${imgSelector(obj.transitType, obj.busType, obj.lineName )}.png`)} /></span>
-                                    {lineName(index, index2)}
+                                    <span id={'verProgress'} style={{height: ((obj.sectionTime+extra)/(time+10*subPathCnt)*100+30+(obj.sectionTime/10*5) ) + "px" ,backgroundColor: colorSelector(obj.transitType, obj.busType, obj.lineName)}}><span><img  id={"detailIcon"} src={require(`../../img/${imgSelector(ways[index].subPathList[index2].transitType, ways[index].subPathList[index2].busType, ways[index].subPathList[index2].lineName )}.png`)} /></span></span>
                                 </div>
-                                <p id={'offPoint'}>도착 {obj.to}</p>
                             </div>
                         </div>
 
                     ))}
-                    <div id={'finalPoint'}><img id={"flag"} src={require('../../img/flag.png')} /> 상명대 정문 </div>
-                </>
+                    <span><img id={'finalIcon'} src={finalIcon}/><p id={'finalPlace'}><span id={'finish'}>도착</span> 상명대 도착</p></span>
+                </div>
             )
         }
     }
@@ -680,14 +694,6 @@ function Search_Box () {
             .catch((error) => {
                 console.log(error);
             })
-    }
-
-
-
-    function drawBusRoute(){
-        busRoute.map((p, idx) => {
-
-        })
     }
 
     useEffect(() => {
@@ -893,7 +899,7 @@ function Search_Box () {
 
                     <div id={'floating'}>
                         {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
-                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null);}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
+                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal();}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); getBusStation(); setRoutePolylines(map);  }} src={busLocation_off}/>}
                     </div>
                     <div className={"search-wrapper"}>
