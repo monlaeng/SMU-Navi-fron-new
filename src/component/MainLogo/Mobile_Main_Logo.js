@@ -5,8 +5,10 @@ import clickedHam from './../../img/hamburger.svg';
 import logo from './../../img/mobileLogo.svg';
 import { useNavigate } from 'react-router-dom';
 import profile from './../../img/profileIcon.svg';
+import noProfile from './../../img/mobileLogout.png';
 import info from './../../img/information.png';
 import sound from './../../img/speaker.png';
+import axios from 'axios';
 
 const Container = styled.div`
   width: 100vw;
@@ -90,6 +92,7 @@ const NavLine = styled.div`
 `;
 
 const Mobile_Main_Logo = () => {
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const onLogin = (e) => {
@@ -128,6 +131,43 @@ const Mobile_Main_Logo = () => {
         navigate('/')
     };
 
+    function refreshToken(){
+        axios({
+            method: 'post',
+            url: 'https://www.smnavi.me/api/user/refresh',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+        }).then((res) => {
+            localStorage.setItem('token', res.data.data.token)
+            onLogout();
+        })
+    }
+    const onLogout = (e) => {
+        axios({
+            url: 'https://www.smnavi.me/api/user/logout',
+            method: 'post',
+            headers:{
+                "Authorization": "Bearer " + token,
+            },
+        }).then((res) => {
+            alert('로그아웃 되었습니다.');
+            localStorage.clear();
+            window.location.reload();
+            // console.log(res.statusCode)
+        }).catch((error) => {
+            if(error.response.status === 401){
+                refreshToken();
+                alert('로그아웃 되었습니다.');
+                localStorage.clear();
+                window.location.reload();
+            }else{
+                alert('로그아웃할 수 없습니다.');
+            }
+        })
+    }
+
     return (
         <Container>
             { isNavOpen ?
@@ -143,7 +183,11 @@ const Mobile_Main_Logo = () => {
             <LogoImage src={logo} onClick={handleLogoClick} />
             <ProfileIconWrap>
                 <InfoImage src={info} onClick={handleInfoClick} />
-                <ProfileImage src={profile} onClick={onLogin}/>
+                { token ?
+                    <ProfileImage src={noProfile} onClick={onLogout}/>
+                    : <ProfileImage src={profile} onClick={onLogin}/>
+                }
+
             </ProfileIconWrap>
             {/* 스르륵 열리는 내비게이션 바 */}
             <NavContainer isOpen={isNavOpen}>
