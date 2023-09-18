@@ -804,9 +804,7 @@ function M_Search_Box() {
             var marker = createMarker(p.latlng, cctvImage);
             cctvMarker.push(marker);
             kakao.maps.event.addListener(marker, 'click', function() {
-                setModalOpen(modalOpen => true);
-                // selectedSrc = p.src;
-                setSrc(p.src);
+                window.open(p.src, '_blank', 'width=500,height=300');
             })
         });
         setCctvMarkers(map);
