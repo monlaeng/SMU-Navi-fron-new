@@ -923,9 +923,9 @@ function Search_Box () {
                 <div id='map' >
                     <span>{isTime? <img id={'loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map);}}/> : <span id={'countWrap'}><span id={'countDown'}>{time}</span><img id={'unloading'} src={unloading} /></span> }</span>
                     <div id={'floating'}>
-                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
-                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal();}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); createBusMarkers(); createStationMarkers();  setRoutePolylines(map);  }} src={busLocation_off}/>}
+                        {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal();}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
+                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
                     </div>
                     <span>{isTime? <img id={'loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map);}}/> : <span id={'countWrap'}><span id={'countDown'}>{time}</span><img id={'unloading'} src={unloading} /></span> }</span>
                     <div className={"search-wrapper"}>
