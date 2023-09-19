@@ -1,77 +1,85 @@
+.bodyBox{
+    background-color: #F1F4FF;
+}
 .header {
+    width: 70%;
+    background-color: white;
+    border: 2px solid #9EB9FF;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin: 0 15%;
     text-align: center;
-    width: 80%;
-    margin: 0 auto;
-    line-height: 50px;
 }
-.header>p{
-    font-weight: bold;
-    font-size: 24px;
-    height: 50px;
-    background-color: #fdd000;
-}
-h5{
-    font-size: 12px;
-    color : gray;
-}
-.body{
-    max-width: 1200px;
-    width: 80%;
-    margin: 0 auto;
-    text-align:center;
+.headerTitle>p{
+    margin: 10px;
     font-size: 20px;
     font-weight: bold;
 }
-
-.ggultip1{
-    padding: 15px 20px;
-    height: 250px;
-    width: 250px;
-    background-color: #fdd000;
-    color: #ffffff;
-    position: absolute;
-    display: none;
-}
-.ggultip2{
-    padding: 15px 20px;
-    width: 250px;
-    background-color: #fdd000;
-    color: #ffffff;
-    position: absolute;
-    display: none;
-}
-#case1:hover + .ggultip1 {
-    display: block;
+.headerTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#case2:hover + .ggultip2 {
-    display: block;
+.header>h5{
+    margin: 10px;
+    font-size: 15px;
+}
+.body{
+    width: 70%;
+    margin: 0 15%;
+    display: flex;
+}
+.left{
+    width: 50%;
+}
+.right{
+    width: 50%;
+}
+#tipBox{
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
-#case1 , #case2{
-    line-height: 100px;
+#tipTitle{
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+    margin: 0;
 }
 
-
-#chap1{
-    display:inline-block;
-    vertical-align:middle;
-    width: 300px;
-    height: 450px;
-    margin-right: 10px;
-    background-color: #fdd000;
-    border-radius: 20px;
-    border: 3px solid black;
+.tipContents{
+    margin-top: 10px;
+    background-color: #FFECBC;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
 }
-#chap2{
-    display:inline-block;
-    vertical-align:middle;
-    width: 300px;
-    height: 450px;
-    margin-left: 10px;
-    background-color: #fdd000;
-    border-radius: 20px;
-    border: 3px solid black;
+
+#tip{
+    margin: 0;
+    font-size: 15px;
+}
+
+.honey{
+    width: 20px;
+    margin: 5px;
+}
+
+.yelloWater{
+    width: 13px;
+    margin: 5px;
+}
+
+.tipTitleBox{
+    display: flex;
+    flex-direction: row;
+    border-bottom: #757575 solid 1px;
 }
 
 .App {
