@@ -111,7 +111,6 @@ function Search_Box () {
     useEffect(() => {
         const id = setInterval(() => {
             setTime((time) => time-1);
-            console.log(time);
         }, 1000);
 
         if(time === 0) {
