@@ -12,7 +12,7 @@ function TipPage(){
             <MainLogo />
             <MenuBar />
             <div className="header">
-                <div className=headerTitle>
+                <div className="headerTitle">
                     <img src={honey} width="20" height="20"/>
                     <p>SMNAVI의 꿀팁 대방출</p>
                     <img src={honey} width="20" height="20"/>
@@ -23,7 +23,7 @@ function TipPage(){
             <div className="body">
                 <div className="left">
                     <div id="tipBox">
-                        <div className=tipTitleBox>
+                        <div className="tipTitleBox">
                             <img src={yelloWater} width="13"/>
                             <p id="tipTitle">언덕 걸어 올라갈 결심을 한 당신</p>
                         </div>
@@ -32,7 +32,7 @@ function TipPage(){
                         </div>
                     </div>
                     <div id="tipBox">
-                        <div className=tipTitleBox>
+                        <div className="tipTitleBox">
                             <img src={yelloWater} width="13"/>
                             <p id="tipTitle">무조건 버스를 타야겠는 당신</p>
                         </div>
@@ -47,7 +47,7 @@ function TipPage(){
                         </div>
                     </div>
                     <div id="tipBox">
-                        <div className=tipTitleBox>
+                        <div className="tipTitleBox">
                             <img src={yelloWater} width="13"/>
                             <p id="tipTitle">경복궁, 광화문에서 7016이 아닌 다른 버스를 타고 오는 슴우 - 에타 봇치님</p>
                         </div>
@@ -60,7 +60,7 @@ function TipPage(){
 
                 <div className="right">
                     <div id="tipBox">
-                        <div className=tipTitleBox>
+                        <div className="tipTitleBox">
                             <img src={yelloWater} width="13"/>
                             <p id="tipTitle">163 같은 버스타고오다가 종로 13을 노리는 슴우 - 에타 봇치님</p>
                         </div>
@@ -80,7 +80,7 @@ function TipPage(){
                         </div>
                     </div>
                     <div id="tipBox">
-                        <div className=tipTitleBox>
+                        <div className="tipTitleBox">
                             <img src={yelloWater} width="13"/>
                             <p id="tipTitle">구기동에서 내려서 후문가는 종로 13을 노리는 슴우 - 에타 봇치님</p>
                         </div>
