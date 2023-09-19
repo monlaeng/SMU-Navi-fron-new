@@ -139,6 +139,7 @@
     z-index: 5;
 }
 
+
 #m_Search_box_title p{
     text-align: center;
     padding: 10px;
@@ -235,6 +236,12 @@
     transform: translate(-35px, 20px);
 }
 
+#m_showInfo{
+    font-size: x-small;
+    transform: translate(15%, 30%);
+    text-decoration: underline;
+}
+
 #hr{
     width: 95vw;
     float: left;
@@ -254,7 +261,7 @@
     border-color: #0B097A;
     border-width: 1px;
     display: inline-block;
-    left: 5vw;
+    left: 10vw;
     top: 10vh;
     overflow: hidden;
     -ms-overflow-style: none;
@@ -265,8 +272,8 @@
     position: absolute;
     background-color: #31333e;
     z-index: 12;
-    right: 1.2px;
-    top: 5px;
+    right: 1.1vw;
+    top: 1vh;
 }
 
 #arrow2 {
@@ -277,6 +284,58 @@
     display: inline-block;
     position: absolute;
 }
+
+@keyframes rotate_image {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#m_loading{
+    width: 5vh;
+    height: 5vh;
+    float: right;
+    z-index: 15;
+    display: inline-block;
+    position: relative;
+    margin-top: 74.5vh;
+    margin-right: 4vw;
+}
+
+#m_unloading{
+    width: 5vh;
+    height: 5vh;
+    float: right;
+    z-index: 15;
+    display: inline-block;
+    position: relative;
+    margin-top: 74.5vh;
+    margin-right: -0.5vw;
+    animation: rotate_image 1s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+#m_countWrap {
+    display: inline-block;
+    float: right;
+    position: relative;
+    text-align: center;
+    align-items: center;
+}
+
+#m_countDown {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    z-index: 16;
+    float: right;
+    margin-top: 75.9vh;
+    right: 3.5vh;
+    font-size: 10px;
+    font-weight: bold;
+}
+
 
 .wrap {position: absolute;left: 0;bottom: 40px;width: 250px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; }
 .wrap * {padding: 0;margin: 0; z-index: 20;}
