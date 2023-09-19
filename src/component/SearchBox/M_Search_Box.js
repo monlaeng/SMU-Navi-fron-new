@@ -17,6 +17,8 @@ import issueStationMarker from '../../img/issueStation.png';
 import cctvMarkerImg from '../../img/cctvMarker.png';
 import finalIcon from '../../img/finalIcon.png';
 import arrow from '../../img/arrow.png';
+import loading from '../../img/reload-on.png';
+import unloading from '../../img/reload-off.png';
 
 const { kakao } = window;
 var polylines = [];
@@ -108,7 +110,25 @@ function M_Search_Box() {
 
     const [src, setSrc] = useState([]);
 
+
     const [showInfo, setShowInfo] = useState([false, false, false, false, false]);
+
+    const [isTime, setIsTime] = useState(false);
+    const [time, setTime] = useState(30);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setTime((time) => time-1);
+            console.log(time);
+        }, 1000);
+
+        if(time === 0) {
+            clearInterval(id);
+            setIsTime(true);
+        }
+
+        return () => clearInterval(id);
+    },[time]);
 
     const polyOption = {
         strokeWeight: 4, // 선의 두께
@@ -149,6 +169,7 @@ function M_Search_Box() {
             await getRoute();
             // getBusRoute();
             getBusStation();
+            getBusLocation();
 
             //7016 노선 그리기
             axios.get("https://www.smnavi.me/api/bus-info/route/7016")
@@ -663,7 +684,7 @@ function M_Search_Box() {
         {
             return(
                 <>
-                    <p id={"showInfo"} onClick={e => changeInfoState(e, index)}>접기</p>
+                    <p id={"m_showInfo"} onClick={e => changeInfoState(e, index)}>접기</p>
                 </>
             )
         }
@@ -747,13 +768,6 @@ function M_Search_Box() {
     }
 
 
-
-    function drawBusRoute(){
-        busRoute.map((p, idx) => {
-
-        })
-    }
-
     useEffect(() => {
         createBusMarkers();
     }, [busPosition])
@@ -761,6 +775,11 @@ function M_Search_Box() {
     useEffect(() => {
         createStationMarkers();
     }, [busStation])
+
+    useEffect(() => {
+        setIsTime(false);
+        setTime(30);
+    }, [busPosition])
 
     function createMarker(position, image) {
         var marker = new kakao.maps.Marker({
@@ -951,6 +970,7 @@ function M_Search_Box() {
     }
 
 
+
     return(
         <>
             <div id={'m_wrapper'}>
@@ -968,11 +988,12 @@ function M_Search_Box() {
                     <div id={'m_floating'}>
                         {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
                         {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal()}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
-                        {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); getBusLocation(); getBusStation(); setRoutePolylines(map);  }} src={busLocation_off}/>}
+                        {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); createBusMarkers(); createStationMarkers();  setRoutePolylines(map);  }} src={busLocation_off}/>}
                     </div>
                     <div>
                         {modalOpen && <StationInfo />}
                     </div>
+                    <span>{isTime? <img id={'m_loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map);}}/> : <span id={'m_countWrap'}><span id={'m_countDown'}>{time}</span><img id={'m_unloading'} src={unloading} /></span> }</span>
                 </div>
                 <div className={"search-wrapper2"}>
                     <div className="mobile-menu" onClick={() => {
