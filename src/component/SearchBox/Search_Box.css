@@ -23,8 +23,8 @@
     stroke: #879B6D;
     border: 1px solid #879B6D;
     position: relative;
-    left: 3vw;
-    top: -10vh;
+    left: 2vw;
+    top: -14vh;
     border-radius: 10px;
     text-align: left;
     z-index: 5;
@@ -406,8 +406,7 @@
     position: fixed;
     z-index: 16;
     float: right;
-    margin-left: 2px;
-    margin-top: 8vh;
+    margin-top: 7.5vh;
     user-select: none;
     left: 88vw;
     font-size: 10px;
