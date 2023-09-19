@@ -17,7 +17,7 @@ import CheckDemon from "./pages/CheckDemon/CheckDemon";
 import ReportTraffic from "./pages/ReportTraffic/ReportTraffic";
 import TrafficList from "./pages/ReportTraffic/TrafficList";
 import Write_ReportTraffic from "./pages/ReportTraffic/Write_traffic";
-import Detail_traffic from "./pages/ReportTraffic/Detail_traffic";
+import Detail_traffic from "./pages/ReportTraffic/DetailTraffic";
 
 import TipPage from "./pages/TipPage/TipPage";
 // import Write_TakeTaxi from './pages/TakeTaxi/Write_TakeTaxi';

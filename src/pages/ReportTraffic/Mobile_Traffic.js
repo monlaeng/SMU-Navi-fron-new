@@ -228,6 +228,14 @@ const ModalEditButton = styled.button`
   padding: 5px 0;
 `
 
+const ModalEditButton2 = styled.button`
+  width: 70px;
+  background-color: #0B097A;
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 5px 0;
+`
+
 export default function Mobile_Traffic(){
     const host = 'https://www.smnavi.me';
     const token = localStorage.getItem('token');
@@ -565,7 +573,7 @@ export default function Mobile_Traffic(){
                                 defaultValue={contents.content}
                                 onChange={(e) => setEditContent(e.target.value)}
                             />
-                            <ModalEditButton onClick={moveEditModal}>수정</ModalEditButton>
+                            <ModalEditButton2 onClick={moveEditModal}>수정</ModalEditButton2>
                         </ModalCard>
                     </Modal>
                     : <></>
