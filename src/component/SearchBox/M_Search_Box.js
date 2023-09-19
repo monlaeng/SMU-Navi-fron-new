@@ -822,7 +822,8 @@ function M_Search_Box() {
             var marker = createMarker(p.latlng, cctvImage);
             cctvMarker.push(marker);
             kakao.maps.event.addListener(marker, 'click', function() {
-                window.open(p.src, '_blank', 'width=400,height=300');
+                alert("현재 기능 수정 중 입니다.")
+                // window.open(p.src, '_blank', 'width=400,height=300');
             })
         });
         setCctvMarkers(map);

@@ -769,7 +769,8 @@ function Search_Box () {
                 // setModalOpen(modalOpen => true);
                 // // selectedSrc = p.src;
                 // setSrc(p.src);
-                window.open(p.src, '_blank', 'width=350,height=300');
+                // window.open(p.src, '_blank', 'width=350,height=300');
+                alert("현재 기능 수정 중 입니다.")
             })
         });
         setCctvMarkers(map);
