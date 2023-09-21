@@ -156,9 +156,9 @@ function Search_Box () {
 
         async function fetchData() {
             await getRoute();
-            // getBusRoute();
-            getBusStation();
             getBusLocation();
+            setBusLocation(true);
+            getBusStation();
 
             //7016 노선 그리기
             axios.get("https://www.smnavi.me/api/bus-info/route/7016")
@@ -184,8 +184,7 @@ function Search_Box () {
                     console.log(error);
                 })
 
-            getBusLocation();
-            setBusLocation(true);
+
             position.map((p, idx) => {
                 var marker = new kakao.maps.Marker({
                     map: map,
