@@ -74,7 +74,7 @@ function Search_Box () {
     const busMarkerImage = new kakao.maps.MarkerImage(busMarkerImg, imageSize);
     const issueBusImage = new kakao.maps.MarkerImage(issueBusMarker, imageSize);
 
-    const smuImageSize = new kakao.maps.Size(30, 35);
+    const smuImageSize = new kakao.maps.Size(25, 37);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
     //~영원히 안변할 변수

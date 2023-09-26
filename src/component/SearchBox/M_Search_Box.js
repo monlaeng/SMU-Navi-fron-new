@@ -87,7 +87,7 @@ function M_Search_Box() {
     const issueStationImage = new kakao.maps.MarkerImage(issueStationMarker, stationImageSize);
     const cctvImage = new kakao.maps.MarkerImage(cctvMarkerImg, imageSize);
 
-    const smuImageSize = new kakao.maps.Size(30, 35);
+    const smuImageSize = new kakao.maps.Size(25, 37);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
 
