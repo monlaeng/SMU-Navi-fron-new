@@ -10,6 +10,7 @@ import Line from '../../component/Line/Line.js';
 
 function Write_traffic() {
     const host = 'https://www.smnavi.me/';
+    const token = localStorage.getItem('token');
     const [subwayList, setSubwayList] = useState([]);
     const [busList, setBusList] = useState([]);
     const [subwayIdList, setSubwayIdList] = useState([]);
@@ -22,7 +23,6 @@ function Write_traffic() {
         } else if (screen <= 768) {
             setMobile(true);
         }
-        console.log(mobile)
     }, [])
 
     useEffect(() => {
@@ -70,25 +70,28 @@ function Write_traffic() {
             url: host + "api/info",
             headers: {
                 "Content-Type": `application/json`,
+                'Authorization' : 'Bearer ' + token
             },
             data: {
                 "transitType": selectedSubway == '지하철' || selectedSubway == 'SUBWAY' ? 'SUBWAY' : 'BUS',
                 "kind": selectedAccident,
                 "stationId": selectedSubwayId,
                 "title": trafficTitle,
-                "content": trafficContent
+                "content": trafficContent,
+                "password": inputPw
             },
         })
         .then((res) => {
-            alert('교통 제보 완료');
+            alert('작성된 글이 제보되었습니다.');
             navigate('/report_traffic');
         })
         .catch((error) => {
-            alert('엥?');
+            alert('작성하지 않은 내용이 있습니다.');
         });
 
     }
 
+    const [inputPw, setInputPw] = useState('');
     const accidentArr = ['시위', '사고', '버스만석', '우회', '그외'];
     const subwayArr = ['버스', '지하철'];
 
@@ -121,7 +124,9 @@ function Write_traffic() {
         setSelectedSubwayId(busIdList[index]);
     };
 
-
+    const setPassword = (e) => {
+        setInputPw(e.target.value);
+    }
     return (
         <div>
             { mobile ?
@@ -138,12 +143,20 @@ function Write_traffic() {
                     <h3>제보하기</h3> :
                 <div className={"reportTitle"}>
                     <div>교통 제보하기 🚨</div>
-                    <p>당일 교통 제보를 제공합니다. 허위 사실 제보는 페널티를 받을 수 있습니다. <br/>
-                        교통 제보에 동의 하시면 동의하기를, 제보 관련
-                        사건이 종료되었거나 발생하지 않은 제보라면
-                        <br/>반대하기를 눌러주세요</p>
+                    <p>당일 교통 제보를 제공하며, 허위 제보는 무통보 삭제 될 수 있습니다.<br/>
+                        제보에 동의하면 좋아요를, 허위 제보라면 싫어요를 눌러주세요</p>
                 </div>}
                 <div className="TrafficBigArea">
+                    { token == null || token == ''
+                        ?   <div className={"password_input_wrap"}>
+                                <p>비밀번호</p>
+                                <input type="password"
+                                       placeholder="비밀번호를 입력하세요"
+                                       onChange={setPassword}
+                                />
+                            </div>
+                        : <></>
+                    }
                     <div className={"Traffic_category_wrap"}>
                         <p>종류</p>
                         {accidentArr.map((elm, index) => (
@@ -158,7 +171,7 @@ function Write_traffic() {
                         ))}
                     </div>
                     <div className={"Location_category_wrap"}>
-                        <p>위치</p>
+                        <p>교통</p>
                         {subwayArr.map((elm, index) => (
                             <Catebory_btn
                                 key={index}
@@ -201,7 +214,7 @@ function Write_traffic() {
                         <p>내용</p>
                         <textarea
                             type="text"
-                            placeholder="허위 제보가 누락되면 강제 탈퇴당할 수 있습니다"
+                            placeholder="허위 제보는 무통보 삭제될 수 있습니다."
                             onChange={onTrafficContentHandler}
                         ></textarea>
                     </div>
