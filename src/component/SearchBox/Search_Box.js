@@ -920,7 +920,7 @@ function Search_Box () {
                         {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal();}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); createBusMarkers(); createStationMarkers();  setRoutePolylines(map);  }} src={busLocation_off}/>}
                     </div>
-                    <span>{isTime? <img id={'loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map);}}/> : <span id={'countWrap'}><span id={'countDown'}>{time}</span><img id={'unloading'} src={unloading} /></span> }</span>
+                    <span>{isTime? <img id={'loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map); setBusLocation(true);}}/> : <span id={'countWrap'}><span id={'countDown'}>{time}</span><img id={'unloading'} src={unloading} /></span> }</span>
                     <div className={"search-wrapper"}>
                         <div id={"Search_box_title"}><p id={"Search_titile"}>상세경로</p></div>
                             {Info()}

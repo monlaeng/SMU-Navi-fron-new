@@ -991,7 +991,7 @@ function M_Search_Box() {
                     <div>
                         {modalOpen && <StationInfo />}
                     </div>
-                    <span>{isTime? <img id={'m_loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map);}}/> : <span id={'m_countWrap'}><span id={'m_countDown'}>{time}</span><img id={'m_unloading'} src={unloading} /></span> }</span>
+                    <span>{isTime? <img id={'m_loading'} src={loading} onClick={() => {setIsTime(!isTime); setTime(30); setBusMarkers(null); closeOverlay(); setStationMarkers(null); getBusLocation(); getBusStation(); setRoutePolylines(map); setBusLocation(true);}}/> : <span id={'m_countWrap'}><span id={'m_countDown'}>{time}</span><img id={'m_unloading'} src={unloading} /></span> }</span>
                 </div>
                 <div className={"search-wrapper2"}>
                     <div className="mobile-menu" onClick={() => {
