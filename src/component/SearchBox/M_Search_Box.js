@@ -119,7 +119,6 @@ function M_Search_Box() {
     useEffect(() => {
         const id = setInterval(() => {
             setTime((time) => time-1);
-            console.log(time);
         }, 1000);
 
         if(time === 0) {
@@ -575,7 +574,7 @@ function M_Search_Box() {
         return(
             <div id="ways-list-wrapper">
                 <div id="ways-list2">
-                    {route ? <>{wayTime.map((data, index) => (
+                    {route ? <>{wayTime ? <>{wayTime.map((data, index) => (
                         <div key={index}>
                             <div onClick={e => handleOnClick(e, index)}>
                                 {/*{bestWay(index)}*/}
@@ -586,7 +585,7 @@ function M_Search_Box() {
                                 <hr/>
                             </div>
                         </div>
-                    ))}</> : <></> }
+                    ))}</> : <></> }</> : <></>}
                 </div>
             </div>
         )
@@ -615,7 +614,6 @@ function M_Search_Box() {
     }
 
     function infoDetail(index) {
-        console.log(ways[index]);
         var subPathCnt = ways[index].subPathCnt;
         var time = ways[index].time;
         if(subPathCnt >= 6)
@@ -986,7 +984,7 @@ function M_Search_Box() {
                     </div>
 
                     <div id={'m_floating'}>
-                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove();}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
+                        {route ? <img onClick={() => {setRoute(!route); setBasicMarkers(null); getRemove(); setWayTime(null);}} src={route_on}/> : <img onClick={() => {setRoute(!route); setBasicMarkers(map)}} src={route_off}/>}
                         {cctv ? <img onClick={() => {setCctv(!cctv); setCctvMarkers(null); closeModal()}} src={cctv_on}/> : <img onClick={() => {setCctv(!cctv); createCctvMarkers();}} src={cctv_off}/>}
                         {busLocation ? <img onClick={() => {setBusLocation(!busLocation); setBusMarkers(null); closeOverlay(); setStationMarkers(null); setRoutePolylines(null); }} src={busLocation_on}/> : <img onClick={() => {setBusLocation(!busLocation); createBusMarkers(); createStationMarkers();  setRoutePolylines(map);  }} src={busLocation_off}/>}
                     </div>
