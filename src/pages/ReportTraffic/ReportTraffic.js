@@ -12,6 +12,7 @@ import Line from '../../component/Line/Line'
 
 function ReportTraffic(){
 
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [content, setContent] = useState([]);
     const [contentCount, setContentCount] = useState();
@@ -23,10 +24,12 @@ function ReportTraffic(){
         async function fetchData(){
             const result = await axios({
                 method: 'get',
-                url: 'https://www.smnavi.me/api/info',
+                url: 'https://www.smnavi.me/api/info?isMine=0',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + token
                 },
+                data: {}
             }).then((res) => {
                 var data = res.data.data.itemList;
                 var count = res.data.data.itemList.length;
@@ -60,7 +63,6 @@ function ReportTraffic(){
         if (slidePx >= (-300 * (contentCount - 6))) setSlidePx(slidePx - 300);
     }
 
-
     return(
         <div>
             <MainLogo />
@@ -68,10 +70,8 @@ function ReportTraffic(){
             <div className={"Report_big_wrap"}>
                 <div className={"reportTitle"}>
                     <div>교통 제보하기 🚨</div>
-                    <p>당일 교통 제보를 제공합니다. 허위 사실 제보는 페널티를 받을 수 있습니다. <br/>
-                        교통 제보에 동의 하시면 동의하기를, 제보 관련
-                        사건이 종료되었거나 발생하지 않은 제보라면
-                        <br/>반대하기를 눌러주세요</p>
+                    <p>당일 교통 제보를 제공하며, 허위 제보는 무통보 삭제 될 수 있습니다.<br/>
+                        제보에 동의하면 좋아요를, 허위 제보라면 싫어요를 눌러주세요</p>
                 </div>
 
                 <div className={"On_Move_WriteTraffic"}>
@@ -84,7 +84,19 @@ function ReportTraffic(){
                         {content != ''
                             ? content.map((content, index) => (
                                 <div className="traffic_tab_box_wrap">
-                                    <TrafficTab slide={slidePx}  type1={content.kind.description} type2={content.transportation.type} type3={content.transportation.station} num={index} time={content.createdTime} content={content.content} heartLike={content.likeInfo.likeCount} heartHate={content.likeInfo.hateCount}/>
+                                    <TrafficTab slide={slidePx}
+                                                type1={content.kind.description}
+                                                type2={content.transportation.type}
+                                                type3={content.transportation.station}
+                                                num={index}
+                                                time={content.createdTime}
+                                                content={content.content}
+                                                heartLike={content.likeInfo.likeCount}
+                                                heartHate={content.likeInfo.hateCount}
+                                                liked={content.likeInfo.islLiked}
+                                                hated={content.likeInfo.isHated}
+                                                onClick={() => onMoveTrafficDetail(content.id)}
+                                    />
                                 </div>
                             ))
                             : <div className="traffic_tab_box">등록된 글이 없습니다</div>}

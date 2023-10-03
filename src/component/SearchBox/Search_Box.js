@@ -42,12 +42,12 @@ let cctvPoint = [
     {
         title : '광화문',
         latlng: new kakao.maps.LatLng(37.5724321, 126.976902),
-        src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010029&cctvname=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null&minX=126.86850223291543&minY=37.532683171998684&maxX=127.08840516954024&maxY=37.618116676194724',
+        src : 'http://www.utic.go.kr/view/map/openDataCctvStream.jsp?key=FJh8Ofu1S68uX8SIZ9xZgUBZPYNz1CRvy3DOyf1SjuqBz9pHQZch68yFnV1nAX&cctvid=L010029&cctvName=%25EA%25B4%2591%25ED%2599%2594%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=62&cctvpasswd=null&cctvport=null',
     },
     {
         title : '시청',
         latlng: new kakao.maps.LatLng(37.5657037, 126.9768616),
-        src : 'https://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010169&cctvname=%25EC%258B%259C%25EC%25B2%25AD&kind=Seoul&cctvip=null&cctvch=51&id=60&cctvpasswd=null&cctvport=null&minX=126.86761300167508&minY=37.52331181092342&maxX=127.08748873586144&maxY=37.60874703165121',
+        src : 'http://www.utic.go.kr/view/map/openDataCctvStream.jsp?key=FJh8Ofu1S68uX8SIZ9xZgUBZPYNz1CRvy3DOyf1SjuqBz9pHQZch68yFnV1nAX&cctvid=L010169&cctvName=%25EC%258B%259C%25EC%25B2%25AD&kind=Seoul&cctvip=null&cctvch=51&id=60&cctvpasswd=null&cctvport=null',
     }
 
 ];
@@ -74,7 +74,7 @@ function Search_Box () {
     const busMarkerImage = new kakao.maps.MarkerImage(busMarkerImg, imageSize);
     const issueBusImage = new kakao.maps.MarkerImage(issueBusMarker, imageSize);
 
-    const smuImageSize = new kakao.maps.Size(30, 35);
+    const smuImageSize = new kakao.maps.Size(25, 37);
     const smuMarkerImage = new kakao.maps.MarkerImage(smuMarker, smuImageSize);
     let myCnt = 5;
     //~영원히 안변할 변수
@@ -761,9 +761,11 @@ function Search_Box () {
             var marker = createMarker(p.latlng, cctvImage);
             cctvMarker.push(marker);
             kakao.maps.event.addListener(marker, 'click', function() {
-                setModalOpen(modalOpen => true);
-                // selectedSrc = p.src;
-                setSrc(p.src);
+                // setModalOpen(modalOpen => true);
+                // // selectedSrc = p.src;
+                // setSrc(p.src);
+                // window.open(p.src, '_blank', 'width=350,height=300');
+                alert("현재 기능 수정 중 입니다.")
             })
         });
         setCctvMarkers(map);

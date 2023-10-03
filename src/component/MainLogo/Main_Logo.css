@@ -26,13 +26,30 @@
 
 #loginBtn{
     font-family: 'S-CoreDream-3Light';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 100px;
     background-color: #F1F4FF;
     font-weight: bolder;
     cursor: pointer;
     font-size: 17px;
     color: black;
+}
+
+#LoginIconWrap{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+#infoIcon{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#speakerIcon{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    cursor: pointer;
 }

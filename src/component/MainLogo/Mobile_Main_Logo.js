@@ -5,10 +5,14 @@ import clickedHam from './../../img/hamburger.svg';
 import logo from './../../img/mobileLogo.svg';
 import { useNavigate } from 'react-router-dom';
 import profile from './../../img/profileIcon.svg';
+import noProfile from './../../img/mobileLogout.png';
+import info from './../../img/information.png';
+import sound from './../../img/speaker.png';
+import axios from 'axios';
 
 const Container = styled.div`
   width: 100vw;
-  height: auto;
+  height: 50px;
   margin: 0;
   padding: 10px 10px 0 0;
   display: flex;
@@ -19,7 +23,7 @@ const Container = styled.div`
 `;
 
 const ListImage = styled.img`
-  width: 30px;
+  width: 20px;
   margin-left: 10px;
   height: auto;
   cursor: pointer;
@@ -33,23 +37,37 @@ const ListOpenImage = styled.img`
 `
 
 const LogoImage = styled.img`
-  width: 110px;
-  height: 60px;
+  position: absolute;
+  left: 40%;
+  top: 0;
+  width: 90px;
+  height: 50px;
   cursor: pointer;
 `;
 
+const ProfileIconWrap = styled.div`
+  display: flex;
+`
+
+const InfoImage = styled.img`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+`
+
 const ProfileImage = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 `;
 
 const NavContainer = styled.div`
   position: absolute;
-  top: 60px;
+  top: 50px;
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 50px);
   background-color: #F1F4FF;
   transition: left 0.3s ease-in-out;
   display: flex;
@@ -60,7 +78,7 @@ const NavContainer = styled.div`
 `;
 
 const NavLink = styled.div`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bolder;
   padding: 20px 10px;
   color: #57558C;
@@ -68,12 +86,13 @@ const NavLink = styled.div`
 `;
 
 const NavLine = styled.div`
-  width: 70%;
+  width: 60%;
   background-color: #57558C;
-  height: 2px;
+  height: 1.5px;
 `;
 
 const Mobile_Main_Logo = () => {
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const onLogin = (e) => {
@@ -99,10 +118,55 @@ const Mobile_Main_Logo = () => {
         setIsNavOpen((prev) => !prev);
     };
 
+    const handleInfoClick = () => {
+        window.open('https://www.notion.so/e589d4fd817e4bc39906195be6de7b70?pvs=4', '_blank')
+    }
+
+    const handleSpeakerClick = () => {
+        window.open('https://forms.gle/F9fp24XeiRdvqiCZ9', '_blank')
+    }
+
     const handleLogoClick = () => {
         setIsNavOpen(false);
         navigate('/')
     };
+
+    function refreshToken(){
+        axios({
+            method: 'post',
+            url: 'https://www.smnavi.me/api/user/refresh',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+        }).then((res) => {
+            localStorage.setItem('token', res.data.data.token)
+            onLogout();
+        })
+    }
+    const onLogout = (e) => {
+        axios({
+            url: 'https://www.smnavi.me/api/user/logout',
+            method: 'post',
+            headers:{
+                "Authorization": "Bearer " + token,
+            },
+        }).then((res) => {
+            alert('로그아웃 되었습니다.');
+            localStorage.clear();
+            window.location.reload();
+            // console.log(res.statusCode)
+        }).catch((error) => {
+            if(error.response.status === 401){
+                refreshToken();
+                alert('로그아웃 되었습니다.');
+                localStorage.clear();
+                window.location.reload();
+            }else{
+                alert('로그아웃할 수 없습니다.');
+            }
+        })
+    }
 
     return (
         <Container>
@@ -117,7 +181,14 @@ const Mobile_Main_Logo = () => {
             }
 
             <LogoImage src={logo} onClick={handleLogoClick} />
-            <ProfileImage src={profile} onClick={onLogin}/>
+            <ProfileIconWrap>
+                <InfoImage src={info} onClick={handleInfoClick} />
+                { token ?
+                    <ProfileImage src={noProfile} onClick={onLogout}/>
+                    : <ProfileImage src={profile} onClick={onLogin}/>
+                }
+
+            </ProfileIconWrap>
             {/* 스르륵 열리는 내비게이션 바 */}
             <NavContainer isOpen={isNavOpen}>
                 <NavLink onClick={toMain}>지도 확인하기</NavLink>
@@ -127,6 +198,8 @@ const Mobile_Main_Logo = () => {
                 <NavLink onClick={toTip}>꿀팁 확인하기</NavLink>
                 <NavLine></NavLine>
                 <NavLink onClick={toCCTV}>CCTV 확인하기</NavLink>
+                <NavLine></NavLine>
+                <NavLink onClick={handleSpeakerClick}>피드백 하러 가기</NavLink>
             </NavContainer>
         </Container>
     );

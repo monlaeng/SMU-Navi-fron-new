@@ -25,7 +25,7 @@ function Login(){
     function onSubmitLogin(){
         axios({
             method: 'post',
-            url: "https://localhost:8080/api/user/login",
+            url: "https://www.smnavi.me/api/user/login",
             headers: {
                 "Content-Type": `application/json`,
             },
@@ -35,21 +35,13 @@ function Login(){
             },
             withCredentials: true,
         }) .then((res) => {
+            localStorage.setItem('token', res.data.data.token);
             alert('로그인 완료');
-            navigate('/notice');
+            navigate('/');
         })
-            .catch((error) => {
-                alert('로그인 실패');
-            });
-
-        // const jwtToken = await signIn(signInPayload)
-        // if(jwtToken){
-        //     setCookie('myToken', token, {
-        //         path: "/",
-        //         secure: true,
-        //         sameSite: "none"
-        //     })
-        // }
+        .catch((error) => {
+            alert('로그인 실패');
+        });
     }
 
     return(
